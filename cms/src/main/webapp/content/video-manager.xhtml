@@ -1,0 +1,102 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <h:body>
+        <ui:composition template="/framework.xhtml">
+            <ui:define name="content">
+                <h:form id="form">
+                    <p:growl id="growl" for="table" />
+                    <p:dataTable id="table" value="#{video.videos}" var="item"
+                                 rows="17" paginator="true" paginatorPosition="bottom" lazy="true">
+                        <p:column width="32">
+                            <f:facet name="header">ID</f:facet>
+                            <h:outputText value="#{item.id}" />
+                        </p:column>
+                        <p:column width="40">
+                            <f:facet name="header">编号</f:facet>
+                            <h:outputText value="#{item.file}" />
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">标题</f:facet>
+                            <h:outputText value="#{item.title}" />
+                        </p:column>
+                        <p:column width="40">
+                            <f:facet name="header">序号</f:facet>
+                            <h:outputText value="#{item.sort}" />
+
+                        </p:column>
+                        <p:column width="40">
+                            <f:facet name="header">时长</f:facet>
+                            <h:outputText value="#{item.duration}" />
+                        </p:column>
+                        <p:column width="100">
+                            <f:facet name="header">拍摄日期</f:facet>
+                            <h:outputText value="#{item.shootTime}" />
+                        </p:column>
+                        <p:column width="100">
+                            <f:facet name="header">发布日期</f:facet>
+                            <h:outputText value="#{item.pubDate}" />
+                        </p:column>
+                        <p:column width="60">
+                            <f:facet name="header">栏目</f:facet>
+                            <h:outputText value="#{item.chatroomVideo?'聊天室':'其它'}" />
+                        </p:column>
+                        <p:column width="16">
+                            <f:facet name="header">荐</f:facet>
+                            <input type="checkbox" value="#{item.recommend}" disabled="true" />
+                        </p:column>
+                        <p:column width="40">
+                            <f:facet name="header">状态</f:facet>
+                            <h:outputText value="#{item.status.descript}" />
+                        </p:column>
+                        <p:column width="80">
+                            <f:facet name="header">操作</f:facet>
+                            <p:commandButton style="float: left;width: 15px;height: 15px" icon="ui-icon ui-icon-search" update=":detail" oncomplete="PF('dlg').show()">
+                                <f:setPropertyActionListener target="#{video.video}" value="#{item}" />
+                            </p:commandButton>
+                            <p:commandButton style="float: left;width: 15px;height: 15px" icon="ui-icon ui-icon-pencil" actionListener="#{video.showEditDialog()}">
+                                <p:ajax event="dialogReturn" update=":form:table, :form:growl" />
+                                <f:setPropertyActionListener target="#{video.video}" value="#{item}" />
+                            </p:commandButton>
+                            <p:spacer style="float: left" width="20" />
+                            <p:commandLink style="float: left" styleClass="ui-icon ui-icon-trash" />
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+                <p:dialog widgetVar="dlg" header="视频详细信息" modal="true" draggable="false">
+                    <h:panelGrid id="detail" columns="2">
+                        <h:outputLabel value="ID：" for="itemId" />
+                        <h:outputText id="itemId" value="#{video.video.id}" />
+                        <h:outputLabel value="文件编号：" for="file" />
+                        <h:outputText id="file" value="#{video.video.file}" />
+                        <h:outputLabel value="视频标题：" for="title" />
+                        <h:outputText id="title" value="#{video.video.title}" />
+                        <h:outputLabel value="视频描述：" for="desc" />
+                        <h:outputText id="desc" value="#{video.video.descrpition}" />
+                        <h:outputLabel value="播放时长：" for="dur" />
+                        <h:outputText id="dur" value="#{video.video.duration}" />
+                        <h:outputLabel value="排序编号：" for="sort" />
+                        <h:outputText id="sort" value="#{video.video.sort}" />
+                        <h:outputLabel value="拍摄日期：" for="shoot" />
+                        <h:outputText id="shoot" value="#{video.video.shootTime}" />
+                        <h:outputLabel value="发布时间：" for="pub" />
+                        <h:outputText id="pub" value="#{video.video.pubDate}">
+                            <f:convertDateTime type="time" pattern="yyyy-mm-dd hh:MM:ss" />
+                        </h:outputText>
+                        <h:outputLabel value="所属栏目：" for="type" />
+                        <h:outputText id="type" value="#{video.video.chatroomVideo?'聊天室':'其它'}" />
+                        <h:outputLabel value="当前状态：" for="status" />
+                        <h:outputText id="status" value="#{video.video.status.descript}" />
+                        <h:outputLabel value="是否推荐：" for="recommend" />
+                        <h:outputText id="recommend" value="#{video.video.recommend?'是':'否'}" />
+                    </h:panelGrid>
+                </p:dialog>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
