@@ -1,7 +1,9 @@
 package com.yidumen.dao.impl;
 
+import com.yidumen.dao.entity.Video;
 import java.util.List;
 import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,13 +40,23 @@ public abstract class AbstractSHImpl<T> {
 
     @Transactional(value = "transactionManager", readOnly = true)
     public T find(Long id) {
-        return (T) getSessionFactory().getCurrentSession().get(entityClass, id);
+        T entity = (T) getSessionFactory().getCurrentSession().load(entityClass, id);
+        return initalizeLazy(entity);
     }
 
     @Transactional(value = "transactionManager", readOnly = true)
     public List<T> findAll() {
-        Criteria cq = getSessionFactory().getCurrentSession().createCriteria(entityClass);
-        return cq.list();
+        List<T> result = getSessionFactory().getCurrentSession().createCriteria(entityClass).list();
+        return initalizeListLazy(result);
+        
     }
 
+    protected List<T> initalizeListLazy(final List<T> list) throws HibernateException {
+        for (T entity : list) {
+            initalizeLazy(entity);
+        }
+        return list;
+    }
+
+    abstract protected T initalizeLazy(T entity);
 }

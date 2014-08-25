@@ -11,7 +11,7 @@ import java.util.List;
  */
 public interface VideoDAO extends BaseDAO<Video> {
 
-    List dateGroup();
+    List<Video> dateGroup();
 
     List<Video> find(VideoStatus videoStatus);
 

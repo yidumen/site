@@ -23,4 +23,9 @@ public class SutraMarkHibernateImpl extends AbstractSHImpl<SutraMark> implements
         return sessionFactory;
     }
 
+    @Override
+    protected SutraMark initalizeLazy(SutraMark entity) {
+        return entity;
+    }
+
 }

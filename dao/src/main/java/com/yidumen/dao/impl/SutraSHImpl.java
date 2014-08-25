@@ -59,4 +59,9 @@ public class SutraSHImpl extends AbstractSHImpl<Sutra> implements SutraDAO {
     protected SessionFactory getSessionFactory() {
         return sessionFactory;
     }
+
+    @Override
+    protected Sutra initalizeLazy(Sutra entity) {
+        return entity;
+    }
 }

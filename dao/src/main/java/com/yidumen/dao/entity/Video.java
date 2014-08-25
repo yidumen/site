@@ -10,6 +10,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -70,7 +71,7 @@ public class Video implements Serializable {
     /**
      * 不同清晰度的视频信息
      */
-    @OneToMany(mappedBy = "video", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "video", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @OrderBy(value = "resolution")
     private List<VideoInfo> extInfo;
 

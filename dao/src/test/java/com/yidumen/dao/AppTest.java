@@ -1,38 +1,55 @@
 package com.yidumen.dao;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import com.yidumen.dao.entity.Video;
+import javax.inject.Inject;
+import org.hamcrest.core.Is;
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import static org.junit.Assert.*;
+import org.junit.runner.RunWith;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
- * Unit test for simple App.
+ *
+ * @author 蔡迪旻 <yidumen.com>
  */
-public class AppTest 
-    extends TestCase
-{
-    /**
-     * Create the test case
-     *
-     * @param testName name of the test case
-     */
-    public AppTest( String testName )
-    {
-        super( testName );
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration("/test-context.xml")
+@Transactional
+public class AppTest {
+    
+    @Inject
+    private VideoDAO dao;
+    
+    public AppTest() {
+    }
+    
+    @BeforeClass
+    public static void setUpClass() {
+    }
+    
+    @AfterClass
+    public static void tearDownClass() {
+    }
+    
+    @Before
+    public void setUp() {
+    }
+    
+    @After
+    public void tearDown() {
     }
 
-    /**
-     * @return the suite of tests being tested
-     */
-    public static Test suite()
-    {
-        return new TestSuite( AppTest.class );
-    }
-
-    /**
-     * Rigourous Test :-)
-     */
-    public void testApp()
-    {
-        assertTrue( true );
-    }
+     @Test
+     public void lazyLoadTest() {
+         Video v = dao.find("00001");
+         v.getExtInfo();
+         v.getTags();
+         v.getComments();
+     }
 }

@@ -24,4 +24,9 @@ public class CommentSHImpl extends AbstractSHImpl<Comment> implements CommentDAO
         return sessionFactory;
     }
 
+    @Override
+    protected Comment initalizeLazy(Comment entity) {
+        return entity;
+    }
+
 }

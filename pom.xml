@@ -9,5 +9,6 @@
     <modules>
     <module>dao</module>
     <module>cms</module>
+    <module>ftplet</module>
   </modules>
 </project>

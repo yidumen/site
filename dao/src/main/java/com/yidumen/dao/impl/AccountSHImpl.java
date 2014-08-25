@@ -33,4 +33,9 @@ public class AccountSHImpl extends AbstractSHImpl<Account> implements AccountDAO
         return sessionFactory;
     }
 
+    @Override
+    protected Account initalizeLazy(Account entity) {
+        return entity;
+    }
+
 }

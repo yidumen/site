@@ -24,4 +24,12 @@ public class VideoService {
         videoDAO.edit(video);
     }
 
+    public Video find(Long id) {
+        return videoDAO.find(id);
+    }
+
+    public Video find(String file) {
+        return videoDAO.find(file);
+    }
+
 }

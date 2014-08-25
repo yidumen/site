@@ -3,3 +3,7 @@
 /cms/nb-configuration.xml
 /cms/nbactions.xml
 /cms/faces-config.NavData
+/dao/target/
+/ftplet/target/
+/ftplet/nbactions.xml
+/ftplet/ftpd-full.xml

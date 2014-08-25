@@ -23,4 +23,9 @@ public class AccessInfoSHImpl extends AbstractSHImpl<AccessInfo> implements Acce
         return sessionFactory;
     }
 
+    @Override
+    protected AccessInfo initalizeLazy(AccessInfo entity) {
+        return entity;
+    }
+
 }

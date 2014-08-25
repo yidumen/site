@@ -1,7 +1,6 @@
 package com.yidumen.dao.impl;
 
 import com.yidumen.dao.TaoDAO;
-import com.yidumen.dao.BaseDAO;
 import com.yidumen.dao.entity.Tag;
 import java.util.List;
 import javax.inject.Inject;
@@ -39,5 +38,10 @@ public class TagSHImpl extends AbstractSHImpl<Tag> implements TaoDAO {
     @Override
     protected SessionFactory getSessionFactory() {
         return sessionFactory;
+    }
+
+    @Override
+    protected Tag initalizeLazy(Tag entity) {
+        return entity;
     }
 }

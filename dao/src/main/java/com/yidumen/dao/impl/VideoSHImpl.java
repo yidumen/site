@@ -6,6 +6,8 @@ import com.yidumen.dao.entity.Video;
 import java.util.Date;
 import java.util.List;
 import javax.inject.Inject;
+import org.hibernate.Hibernate;
+import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,7 +27,7 @@ public class VideoSHImpl extends AbstractSHImpl<Video> implements VideoDAO {
 
     @Transactional(value = "transactionManager", readOnly = true)
     @Override
-    public List<Video> find(VideoStatus videoStatus) {
+    public List<Video> find(final VideoStatus videoStatus) {
         final Query q = sessionFactory.getCurrentSession().getNamedQuery("video.findByStatus")
                 .setParameter(1, videoStatus);
         return q.list();
@@ -33,69 +35,85 @@ public class VideoSHImpl extends AbstractSHImpl<Video> implements VideoDAO {
 
     @Transactional(value = "transactionManager", readOnly = true)
     @Override
-    public List<Video> getNewVideos(int limit) {
+    public List<Video> getNewVideos(final int limit) {
         final Query q = sessionFactory.getCurrentSession().getNamedQuery("video.findNew");
-        q.setMaxResults(limit);
-        return q.list();
+        final List<Video> result = q.setMaxResults(limit).list();
+        return initalizeListLazy(result);
     }
 
     @Transactional(value = "transactionManager", readOnly = true)
     @Override
     public List<Video> findRecommend() {
-        final Query q = sessionFactory.getCurrentSession().getNamedQuery("video.findRecommend");
-        return q.list();
+        final List<Video> result = sessionFactory.getCurrentSession().getNamedQuery("video.findRecommend").list();
+        return initalizeListLazy(result);
     }
 
     @Transactional(value = "transactionManager", readOnly = true)
     @Override
-    public List dateGroup() {
-        final Query q = sessionFactory.getCurrentSession().getNamedQuery("video.dateGroup");
-        return q.list();
+    public List<Video> dateGroup() {
+        final List<Video> result = sessionFactory.getCurrentSession().getNamedQuery("video.dateGroup").list();
+        return initalizeListLazy(result);
     }
 
     @Transactional(value = "transactionManager", readOnly = true)
     @Override
-    public List<Video> find(Date startTime, Date endTime) {
-        return sessionFactory.getCurrentSession().getNamedQuery("video.findBetween")
+    public List<Video> find(final Date startTime, final Date endTime) {
+        List<Video> result = sessionFactory.getCurrentSession().getNamedQuery("video.findBetween")
                 .setDate(1, new java.sql.Date(startTime.getTime()))
                 .setDate(2, new java.sql.Date(endTime.getTime()))
                 .list();
+        return initalizeListLazy(result);
     }
 
     @Transactional(value = "transactionManager", readOnly = true)
     @Override
-    public Video find(String file) {
-        return (Video) sessionFactory.getCurrentSession().getNamedQuery("video.findByFile")
+    public Video find(final String file) {
+        final Video result = (Video) sessionFactory
+                .getCurrentSession()
+                .getNamedQuery("video.findByFile")
                 .setString("file", file)
                 .uniqueResult();
+        return initalizeLazy(result);
     }
 
     @Transactional(value = "transactionManager", readOnly = true)
     @Override
-    public List<Video> find(Date shootTime, String file) {
-        return sessionFactory.getCurrentSession().getNamedQuery("video.getAutoPlayList")
+    public List<Video> find(final Date shootTime, final String file) {
+        List<Video> result = sessionFactory.getCurrentSession().getNamedQuery("video.getAutoPlayList")
                 .setDate(1, shootTime)
                 .setString(2, file)
                 .list();
+        return initalizeListLazy(result);
     }
 
     @Transactional(value = "transactionManager", readOnly = true)
     @Override
-    public List<Video> find(Date shootTime, String file, int limit) {
-        return sessionFactory.getCurrentSession().getNamedQuery("video.getAutoPlayList2")
+    public List<Video> find(final Date shootTime, final String file, final int limit) {
+        List<Video> result = sessionFactory.getCurrentSession().getNamedQuery("video.getAutoPlayList2")
                 .setDate(1, shootTime)
                 .setString(2, file)
                 .setMaxResults(limit)
                 .list();
+        return initalizeListLazy(result);
     }
 
     @Transactional(value = "transactionManager", readOnly = true)
     @Override
-    public List<Video> find(Date shootTime, int limit) {
-        return sessionFactory.getCurrentSession().getNamedQuery("video.getAutoPlayList3")
+    public List<Video> find(final Date shootTime, final int limit) {
+        List<Video> result = sessionFactory.getCurrentSession().getNamedQuery("video.getAutoPlayList3")
                 .setDate(1, shootTime)
                 .setMaxResults(limit)
                 .list();
+        return initalizeListLazy(result);
+    }
+
+    @Override
+    protected Video initalizeLazy(final Video video) throws HibernateException {
+        Hibernate.initialize(video.getExtInfo());
+        Hibernate.initialize(video.getTags());
+        Hibernate.initialize(video.getComments());
+
+        return video;
     }
 
     @Override
