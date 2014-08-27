@@ -6,10 +6,10 @@ package com.yidumen.dao.constant;
  */
 public enum VideoResolution {
 
-    SHD("720p", "超清"),
-    HD("480p", "高清"),
-    SD("360p", "标清"),
-    FLOW("180p", "流畅");
+    SHD("720", "超清"),
+    HD("480", "高清"),
+    SD("360", "标清"),
+    FLOW("180", "流畅");
 
     private final String resolution;
     private final String descript;
@@ -17,6 +17,15 @@ public enum VideoResolution {
     private VideoResolution(String resolution, String descript) {
         this.resolution = resolution;
         this.descript = descript;
+    }
+    
+    public static VideoResolution getResolutionByDescript(String descript) {
+        for (VideoResolution vr : VideoResolution.values()) {
+            if (vr.getDescript().equals(descript)) {
+                return vr;
+            }
+        }
+        return null;
     }
 
     public String getResolution() {

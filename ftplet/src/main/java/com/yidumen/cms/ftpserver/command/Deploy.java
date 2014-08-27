@@ -16,20 +16,23 @@ import org.apache.ftpserver.ftplet.FtpException;
 import org.apache.ftpserver.ftplet.FtpRequest;
 import org.apache.ftpserver.impl.FtpIoSession;
 import org.apache.ftpserver.impl.FtpServerContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author 蔡迪旻 <yidumen.com>
  */
-public final class Runbat implements Command {
+public final class Deploy implements Command {
 
+    private final Logger log = LoggerFactory.getLogger(Deploy.class);
     private FtpIoSession fis;
-    private static String workdir;
-    private static String batName;
-    public static String videoPath;
-    public static String dlPath;
-    public static String dlmpgPath;
-    public static String dlmp3Path;
+    private String workdir;
+    private String batName;
+    private String videoPath;
+    private String dlPath;
+    private String dlmpgPath;
+    private String dlmp3Path;
 
     @Override
     public void execute(final FtpIoSession fis,
@@ -51,22 +54,25 @@ public final class Runbat implements Command {
         }
         reader.close();
         console("bat执行完毕，开始分发文件");
+        final List<File> deployFiles = new ArrayList<>();
         final File[] files = uploadDirectory.listFiles();
         for (final File file : files) {
             final String filename = file.getName();
-            if (!filename.matches("mp3$|mp4$|mpg$")) {
+            if (!filename.matches(".*mp3$|.*mp4$|.*mpg$")) {
                 continue;
             }
-            final List<File> deployFiles = (List<File>) fis.getAttribute("deployFiles", new ArrayList<>());
+            console("找到文件" + filename);
             if (filename.endsWith("mp3")) {
                 deleteVideo(filename.split("_")[0], dlPath, "mp3");
                 final File dest = new File(dlmp3Path, filename);
                 file.renameTo(dest);
+                console("将音频" + file.getName() + "移动到相应目录");
                 deployFiles.add(dest);
             } else if (filename.endsWith("mpg")) {
                 deleteVideo(filename.split("_")[0], dlPath, "mpg");
                 final File dest = new File(dlmpgPath, filename);
                 file.renameTo(dest);
+                console("将视频" + file.getName() + "移动到相应目录");
                 deployFiles.add(dest);
             } else {
                 final Matcher videoMatcher = VIDEO_NAME.matcher(filename);
@@ -75,19 +81,23 @@ public final class Runbat implements Command {
                     deleteVideo(videoMatcher.group(1), videoPath, videoMatcher.group(2));
                     final File dest = new File(videoPath + videoMatcher.group(2), filename);
                     file.renameTo(dest);
+                    console("将视频" + file.getName() + "移动到相应目录");
                     deployFiles.add(dest);
                 } else if (dlMatcher.matches()) {
-                    deleteVideo(dlMatcher.group(1), dlPath, dlMatcher.group(2));
-                    final File dest = new File(dlPath + dlMatcher.group(2), filename);
+                    deleteVideo(dlMatcher.group(1), dlPath, dlMatcher.group(3));
+                    final File dest = new File(dlPath + dlMatcher.group(3), filename);
                     file.renameTo(dest);
+                    console("将视频" + file.getName() + "移动到相应目录");
                     deployFiles.add(dest);
                 }
             }
         }
+        fis.setAttribute("deployFiles", deployFiles);
         console("命令执行完毕，如果没有后续操作将退出执行。");
     }
 
     private void deleteVideo(String filecode, String parent, String sub) {
+        log.debug("准备删除{}下{}目录中编号为{}的文件", new String[]{parent, sub, filecode});
         final File dest = new File(parent, sub);
         File[] files = dest.listFiles();
         for (File file : files) {
@@ -95,7 +105,7 @@ public final class Runbat implements Command {
             if (!filename.startsWith(filecode)) {
                 continue;
             }
-            console("删除旧视频:" + filename);
+            console("删除旧文件:" + filename);
             file.delete();
         }
     }
@@ -105,21 +115,25 @@ public final class Runbat implements Command {
     }
 
     public void setWorkdir(String workdir) {
-        Runbat.workdir = workdir;
+        this.workdir = workdir;
     }
 
     public void setBatName(String batName) {
-        Runbat.batName = batName;
+        this.batName = batName;
     }
 
     public void setParent(String parent) {
-        if (!parent.endsWith("/")) {
-            parent = parent + "/";
+        if (!parent.endsWith(File.separator)) {
+            parent = parent + File.separator;
         }
-        dlPath = parent + "video_dl/";
-        dlmpgPath = dlPath + "mpg/";
-        dlmp3Path = dlPath + "mp3/";
-        videoPath = parent + "video/";
+        dlPath = parent + "video_dl" + File.separator;
+        log.debug("dlPath={}", dlPath);
+        dlmpgPath = dlPath + "mpg" + File.separator;
+        log.debug("dlmpgPath={}", dlmpgPath);
+        dlmp3Path = dlPath + "mp3" + File.separator;
+        log.debug("dlmp3Path={}", dlmp3Path);
+        videoPath = parent + "video" + File.separator;
+        log.debug("videoPath={}", videoPath);
     }
 
 }

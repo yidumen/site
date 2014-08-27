@@ -7,3 +7,5 @@
 /ftplet/target/
 /ftplet/nbactions.xml
 /ftplet/ftpd-full.xml
+/ftplet/users.properties
+/ftplet/ftpd.xml
