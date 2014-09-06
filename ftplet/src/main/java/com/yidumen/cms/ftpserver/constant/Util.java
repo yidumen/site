@@ -25,9 +25,9 @@ public class Util {
         if (separator.equals("\\")) {
             separator = "\\\\";
         }
-        OSS_KEY = Pattern.compile("^.*" + separator + "(\\w{5,8}" + separator + "\\d{3}" + separator + "\\w{5})(.*)$");
+        OSS_KEY = Pattern.compile("^.*" + separator + "(\\w{5,8}" + separator + "\\w{3}" + separator + "\\w{5})(.*)$");
         log.debug("OSS_KEY= {}", OSS_KEY.pattern());
-        VIDEO_TYPE = Pattern.compile("^.*" + separator + "(\\w{5,8})" + separator + "(\\d{3})" + separator + ".*$");
+        VIDEO_TYPE = Pattern.compile("^.*" + separator + "(\\w{5,8})" + separator + "(\\w{3})" + separator + ".*$");
         log.debug("VIDEO_TYPE= {}", VIDEO_TYPE.pattern());
         Calendar cal = Calendar.getInstance();
         cal.set(2020, 11, 31, 23, 59, 59);

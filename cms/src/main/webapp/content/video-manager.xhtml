@@ -3,99 +3,207 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
 
-    <h:body>
+    <h:body id="root">
         <ui:composition template="/framework.xhtml">
+            <ui:define name="import">
+                <link rel="stylesheet" type="text/css" href="/resources/css/bootstrap-datetimepicker.min.css" />
+                <link rel="stylesheet" type="text/css" href="/resources/css/video-info.css" />
+            </ui:define>
             <ui:define name="content">
+                <h:form styleClass="table-counter">
+                    <label for="count" class="text-primary control-label">每页显示</label>
+                    <h:inputText id="count" styleClass="input-table-counter" value="#{video.count}">
+                        <f:ajax event="blur" render=":form" />
+                    </h:inputText>
+                    <h:outputText styleClass="text-primary" value="行" />
+                </h:form>
+
                 <h:form id="form">
-                    <p:growl id="growl" for="table" />
-                    <p:dataTable id="table" value="#{video.videos}" var="item"
-                                 rows="17" paginator="true" paginatorPosition="bottom" lazy="true">
-                        <p:column width="32">
+                    <h:dataTable id="videos" styleClass="table table-striped table-hover table-responsive"
+                                 columnClasses="table-col-id,table-col-file,table-col-title,table-col-index,table-col-duration,table-col-date,table-col-date,table-col-column,table-col-id,table-col-status,table-col-opera"
+                                 value="#{video.videos}" var="item" first="#{(video.curPage-1) * video.count}" rows="#{video.count}" frame="below">
+                        <h:column>
                             <f:facet name="header">ID</f:facet>
                             <h:outputText value="#{item.id}" />
-                        </p:column>
-                        <p:column width="40">
+                        </h:column>
+                        <h:column>
                             <f:facet name="header">编号</f:facet>
                             <h:outputText value="#{item.file}" />
-                        </p:column>
-                        <p:column>
+                        </h:column>
+                        <h:column>
                             <f:facet name="header">标题</f:facet>
                             <h:outputText value="#{item.title}" />
-                        </p:column>
-                        <p:column width="40">
+                        </h:column>
+                        <h:column>
                             <f:facet name="header">序号</f:facet>
-                            <h:outputText value="#{item.sort}" />
+                            <h:outputText value="#{item.sort==0?'-':item.sort}" />
 
-                        </p:column>
-                        <p:column width="40">
+                        </h:column>
+                        <h:column>
                             <f:facet name="header">时长</f:facet>
                             <h:outputText value="#{item.duration}" />
-                        </p:column>
-                        <p:column width="100">
+                        </h:column>
+                        <h:column>
                             <f:facet name="header">拍摄日期</f:facet>
                             <h:outputText value="#{item.shootTime}" />
-                        </p:column>
-                        <p:column width="100">
+                        </h:column>
+                        <h:column>
                             <f:facet name="header">发布日期</f:facet>
                             <h:outputText value="#{item.pubDate}" />
-                        </p:column>
-                        <p:column width="60">
+                        </h:column>
+                        <h:column>
                             <f:facet name="header">栏目</f:facet>
                             <h:outputText value="#{item.chatroomVideo?'聊天室':'其它'}" />
-                        </p:column>
-                        <p:column width="16">
+                        </h:column>
+                        <h:column>
                             <f:facet name="header">荐</f:facet>
                             <input type="checkbox" value="#{item.recommend}" disabled="true" />
-                        </p:column>
-                        <p:column width="40">
+                        </h:column>
+                        <h:column>
                             <f:facet name="header">状态</f:facet>
                             <h:outputText value="#{item.status.descript}" />
-                        </p:column>
-                        <p:column width="80">
+                        </h:column>
+                        <h:column>
                             <f:facet name="header">操作</f:facet>
-                            <p:commandButton style="float: left;width: 15px;height: 15px" icon="ui-icon ui-icon-search" update=":detail" oncomplete="PF('dlg').show()">
-                                <f:setPropertyActionListener target="#{video.video}" value="#{item}" />
-                            </p:commandButton>
-                            <p:commandButton style="float: left;width: 15px;height: 15px" icon="ui-icon ui-icon-pencil" actionListener="#{video.showEditDialog()}">
-                                <p:ajax event="dialogReturn" update=":form:table, :form:growl" />
-                                <f:setPropertyActionListener target="#{video.video}" value="#{item}" />
-                            </p:commandButton>
-                            <p:spacer style="float: left" width="20" />
-                            <p:commandLink style="float: left" styleClass="ui-icon ui-icon-trash" />
-                        </p:column>
-                    </p:dataTable>
+                            <h:panelGroup>
+                                <h:commandLink styleClass="ui-icon ui-icon-search pull-left"
+                                               title="#{item.title}-详细"
+                                               p:data-toggle="modal" p:data-target="#amodal">
+                                    <f:setPropertyActionListener value="#{item}" target="#{video.video}" />
+                                    <f:ajax render=":detail" />
+                                </h:commandLink>
+                                <h:commandLink styleClass="ui-icon ui-icon-pencil pull-left"
+                                               title="编辑-#{item.title}">
+                                    <f:setPropertyActionListener value="#{item}" target="#{video.video}" />
+                                    <f:ajax render=":detail" />
+                                </h:commandLink>
+                                <h:commandLink styleClass="ui-icon ui-icon-trash pull-right" />
+                            </h:panelGroup>
+                        </h:column>
+                    </h:dataTable>
+                    <ul class="pagination center-block">
+                        <li>
+                            <h:commandLink value="&laquo;">
+                                <f:setPropertyActionListener value="1" target="#{video.curPage}" />
+                                <f:ajax render="@form" />
+                            </h:commandLink>
+                        </li>
+                        <li>
+                            <h:commandLink value="&lsaquo;">
+                                <f:setPropertyActionListener value="#{video.curPage - 1}" target="#{video.curPage}" />
+                                <f:ajax render="@form" />
+                            </h:commandLink>
+                        </li>
+                        <ui:repeat id="pager" value="#{video.pages}"
+                                   size="#{video.curPage == 1?10:((video.curPage + 6)>=video.pageCount?video.pageCount:(video.curPage + 6))}"
+                                   offset="#{video.curPage-4}" var="page">
+                            <li class="#{page==video.curPage?'active':''}">
+                                <h:commandLink value="#{page}">
+                                    <f:setPropertyActionListener value="#{page}" target="#{video.curPage}" />
+                                    <f:ajax render="@form" />
+                                </h:commandLink>
+                            </li>
+                        </ui:repeat>
+                        <li>
+                            <h:commandLink value="&rsaquo;">
+                                <f:setPropertyActionListener
+                                    value="#{video.curPage + 1}"
+                                    target="#{video.curPage}" />
+                                <f:ajax render="@form" />
+                            </h:commandLink>
+                        </li>
+                        <li>
+                            <h:commandLink value="&raquo;">
+                                <f:setPropertyActionListener value="#{video.pageCount}" target="#{video.curPage}" />
+                                <f:ajax render="@form" />
+                            </h:commandLink>
+                        </li>
+                    </ul>
+                    <div class="table-counter pull-right">
+                        <h:outputText styleClass="text-primary" value="共#{video.pageCount}页，跳转到第" />
+                        <h:inputText styleClass="input-table-counter" value="#{video.curPage}">
+                            <f:ajax event="blur" render="@form" />
+                        </h:inputText>
+                        <h:outputText styleClass="text-primary" value="页" />
+                    </div>
                 </h:form>
-                <p:dialog widgetVar="dlg" header="视频详细信息" modal="true" draggable="false">
-                    <h:panelGrid id="detail" columns="2">
-                        <h:outputLabel value="ID：" for="itemId" />
-                        <h:outputText id="itemId" value="#{video.video.id}" />
-                        <h:outputLabel value="文件编号：" for="file" />
-                        <h:outputText id="file" value="#{video.video.file}" />
-                        <h:outputLabel value="视频标题：" for="title" />
-                        <h:outputText id="title" value="#{video.video.title}" />
-                        <h:outputLabel value="视频描述：" for="desc" />
-                        <h:outputText id="desc" value="#{video.video.descrpition}" />
-                        <h:outputLabel value="播放时长：" for="dur" />
-                        <h:outputText id="dur" value="#{video.video.duration}" />
-                        <h:outputLabel value="排序编号：" for="sort" />
-                        <h:outputText id="sort" value="#{video.video.sort}" />
-                        <h:outputLabel value="拍摄日期：" for="shoot" />
-                        <h:outputText id="shoot" value="#{video.video.shootTime}" />
-                        <h:outputLabel value="发布时间：" for="pub" />
-                        <h:outputText id="pub" value="#{video.video.pubDate}">
-                            <f:convertDateTime type="time" pattern="yyyy-mm-dd hh:MM:ss" />
-                        </h:outputText>
-                        <h:outputLabel value="所属栏目：" for="type" />
-                        <h:outputText id="type" value="#{video.video.chatroomVideo?'聊天室':'其它'}" />
-                        <h:outputLabel value="当前状态：" for="status" />
-                        <h:outputText id="status" value="#{video.video.status.descript}" />
-                        <h:outputLabel value="是否推荐：" for="recommend" />
-                        <h:outputText id="recommend" value="#{video.video.recommend?'是':'否'}" />
-                    </h:panelGrid>
-                </p:dialog>
+                <div id="amodal" class="modal">
+                    <div class="modal-dialog">
+                        <h:panelGroup id="detail" styleClass="modal-content" layout="block">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                <h:outputText styleClass="modal-title h4" value="#{video.video.title}" />
+                            </div>
+                            <div class="modal-body">
+                                <h:panelGrid columns="6" style="width: 100%"
+                                             columnClasses="text-muted, text-info,text-muted, text-info,text-muted, text-info">
+
+                                    <h:outputLabel value="ID：" for="itemId" />
+                                    <h:outputText id="itemId" value="#{video.video.id}" />
+
+                                    <h:outputLabel value="文件编号：" for="file" />
+                                    <h:outputText id="file" value="#{video.video.file}" />
+
+
+                                    <h:outputLabel value="排序编号：" for="sort" />
+                                    <h:outputText id="sort" value="#{video.video.sort==0?'-':video.video.sort}" rendered="#{not video.editable}" />
+                                    <h:inputText id="sort" value="#{video.video.sort}" rendered="#{video.editable}" />
+
+                                    <h:outputLabel value="播放时长：" for="dur" />
+                                    <h:outputText id="dur" value="#{video.video.duration}" />
+
+                                    <h:outputLabel value="所属栏目：" for="type" />
+                                    <h:outputText id="type" value="#{video.video.chatroomVideo?'聊天室':'其它'}" rendered="#{not video.editable}" />
+                                    <h:selectOneRadio id="type" value="#{video.video.chatroomVideo}" rendered="#{video.editable}">
+                                        <f:selectItem itemLabel="聊天室" itemValue="true" />
+                                        <f:selectItem itemLabel="其它栏目" itemValue="false" />
+                                    </h:selectOneRadio>
+
+                                    <h:outputLabel value="拍摄日期：" for="shoot" />
+                                    <h:outputText id="shoot" value="#{video.video.shootTime}" rendered="#{not video.editable}" />
+                                    <div class="input-append date" id="datetimepicker" data-date="12-02-2012" data-date-format="dd-mm-yyyy">
+                                        <h:inputText id="shoot" value="#{video.video.shootTime}" rendered="#{video.editable}" />
+                                    </div>
+
+                                    <h:outputLabel value="当前状态：" for="status" />
+                                    <h:outputText id="status" value="#{video.video.status.descript}" />
+
+                                    <h:outputLabel value="是否推荐：" for="recommend" />
+                                    <h:outputText id="recommend" value="#{video.video.recommend?'是':'否'}" />
+
+                                    <h:outputLabel value="发布时间：" for="pub" />
+                                    <h:outputText id="pub" value="#{video.video.pubDate}">
+                                        <f:convertDateTime type="time" pattern="yyyy-mm-dd hh:MM:ss" />
+                                    </h:outputText>
+
+                                    <f:facet name="footer">
+                                        <h:outputLabel value="视频描述：" for="desc" />
+                                        <h:outputText id="desc" value="#{video.video.descrpition}" />
+                                        <dl>
+                                            <dt class="h5">文件大小</dt>
+                                            <ui:repeat value="#{video.video.extInfo}" var="info">
+                                                <dd class="text-muted">
+                                                    <h:outputText value="#{info.resolution.descript}：#{info.fileSize}MB" />
+                                                </dd>
+                                            </ui:repeat>
+                                        </dl>
+                                    </f:facet>
+                                </h:panelGrid>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </h:panelGroup><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                </div><!-- /.modal -->
+            </ui:define>
+            <ui:define name="js">
+                <script type="text/javascript" src="/resources/js/bootstrap-datetimepicker.min.js"></script>
+                <script type="text/javascript" src="/resources/js/bootstrap-datetimepicker.zh-CN.js"></script>
             </ui:define>
         </ui:composition>
     </h:body>
