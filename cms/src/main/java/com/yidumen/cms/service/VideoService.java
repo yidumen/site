@@ -1,43 +1,22 @@
 package com.yidumen.cms.service;
 
-import com.yidumen.dao.VideoDAO;
 import com.yidumen.dao.entity.Video;
 import java.util.List;
-import javax.inject.Inject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
 
 /**
  *
  * @author 蔡迪旻 <yidumen.com>
  */
-@Service
-public class VideoService {
-    private final Logger log = LoggerFactory.getLogger(VideoService.class);
-    @Inject
-    private VideoDAO videoDAO;
+public interface VideoService {
 
-    public List<Video> getVideos() {
-        return videoDAO.findAll();
-    }
+    Video find(Long id);
 
-    public void updateVideo(Video video) {
-        log.debug("更新Video {}", video.getTitle());
-        videoDAO.edit(video);
-    }
+    Video find(String file);
 
-    public Video find(Long id) {
-        return videoDAO.find(id);
-    }
+    List<Video> getVideos();
 
-    public Video find(String file) {
-        return videoDAO.find(file);
-    }
+    void removeVideo(Video video);
 
-    public void removeVideo(Video video) {
-        videoDAO.remove(video);
-        log.debug("视频 {} 已删除", video.getTitle());
-    }
-
+    void updateVideo(Video video);
+    
 }

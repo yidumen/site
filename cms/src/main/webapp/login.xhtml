@@ -13,9 +13,9 @@
                 <div class="panel-heading">易度门内容管理平台</div>
                 <h:panelGrid columns="2">
                     <h:outputLabel styleClass="control-label" for="username" value="用户名：" />
-                    <h:inputText id="username" styleClass="form-control" value="" />
+                    <h:inputText id="username" styleClass="form-control" value="#{login.user.username}" />
                     <h:outputLabel styleClass="control-label" for="password" value="密 码：" />
-                    <h:inputSecret id="password" styleClass="form-control" value="" />
+                    <h:inputSecret id="password" styleClass="form-control" value="#{login.user.password}" />
                     <f:facet name="footer">
                         <h:commandButton styleClass="btn btn-primary" value="登 录" action="#{login.login()}" />
                     </f:facet>

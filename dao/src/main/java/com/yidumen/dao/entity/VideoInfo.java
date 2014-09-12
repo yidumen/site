@@ -1,6 +1,5 @@
 package com.yidumen.dao.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.yidumen.dao.constant.VideoResolution;
 import java.io.Serializable;
 import javax.persistence.Basic;
@@ -23,7 +22,6 @@ public class VideoInfo implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JsonIgnore
     @ManyToOne
     private Video video;
 

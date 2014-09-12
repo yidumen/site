@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+    <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+    <property name="hibernate.connection.url">jdbc:mysql://QFINl7VB4Atdux9s:sJjwGbudhDZmd5cv@10.9.1.188:3306/cf_0681c1b9_eb9e_4820_bfe3_8173d20f433d</property>
+    <property name="hibernate.connection.username">QFINl7VB4Atdux9s</property>
+    <property name="hibernate.connection.password">sJjwGbudhDZmd5cv</property>
+    <property name="hibernate.show_sql">false</property>
+    <property name="hibernate.current_session_context_class">thread</property>
+    <mapping class="com.yidumen.dao.entity.Video"/>
+    <mapping class="com.yidumen.dao.entity.VideoInfo"/>
+    <mapping class="com.yidumen.dao.entity.AccessInfo"/>
+    <mapping class="com.yidumen.dao.entity.Account"/>
+    <mapping class="com.yidumen.dao.entity.CmsUser"/>
+    <mapping class="com.yidumen.dao.entity.Comment"/>
+    <mapping class="com.yidumen.dao.entity.Sutra"/>
+    <mapping class="com.yidumen.dao.entity.SutraMark"/>
+    <mapping class="com.yidumen.dao.entity.Tag"/>
+    <mapping class="com.yidumen.dao.entity.UserMessage"/>
+    <mapping class="com.yidumen.dao.entity.VerifyInfo"/>
+  </session-factory>
+</hibernate-configuration>

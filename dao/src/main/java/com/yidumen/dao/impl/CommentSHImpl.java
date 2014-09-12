@@ -2,8 +2,6 @@ package com.yidumen.dao.impl;
 
 import com.yidumen.dao.CommentDAO;
 import com.yidumen.dao.entity.Comment;
-import javax.inject.Inject;
-import org.hibernate.SessionFactory;
 
 /**
  *
@@ -11,22 +9,12 @@ import org.hibernate.SessionFactory;
  */
 public class CommentSHImpl extends AbstractSHImpl<Comment> implements CommentDAO {
 
-    @Inject
-    private SessionFactory sessionFactory;
-
-
     public CommentSHImpl() {
         super(Comment.class);
     }
 
     @Override
-    protected SessionFactory getSessionFactory() {
-        return sessionFactory;
-    }
-
-    @Override
-    protected Comment initalizeLazy(Comment entity) {
-        return entity;
+    protected void initalizeLazy(Comment entity) {
     }
 
 }

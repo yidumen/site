@@ -2,10 +2,9 @@ package com.yidumen.dao.impl;
 
 import com.yidumen.dao.AccountDAO;
 import com.yidumen.dao.entity.Account;
+import com.yidumen.dao.framework.HibernateUtil;
 import java.io.Serializable;
-import javax.inject.Inject;
-import org.hibernate.SessionFactory;
-import org.springframework.transaction.annotation.Transactional;
+import org.hibernate.Session;
 
 /**
  *
@@ -13,29 +12,23 @@ import org.springframework.transaction.annotation.Transactional;
  */
 public class AccountSHImpl extends AbstractSHImpl<Account> implements AccountDAO,Serializable {
 
-    @Inject
-    private SessionFactory sessionFactory;
-
     public AccountSHImpl() {
         super(Account.class);
     }
 
-    @Transactional(value = "transactionManager", readOnly = true)
     @Override
     public Account find(String emailOrPhone) {
-        return (Account) sessionFactory.getCurrentSession().getNamedQuery("Account.findByName")
+        final Session currentSession = HibernateUtil.getSessionFactory().getCurrentSession();
+        currentSession.beginTransaction();
+        final Account result = (Account) currentSession.getNamedQuery("Account.findByName")
                 .setString("username", emailOrPhone)
                 .uniqueResult();
+        currentSession.getTransaction().commit();
+        return result;
     }
 
     @Override
-    protected SessionFactory getSessionFactory() {
-        return sessionFactory;
-    }
-
-    @Override
-    protected Account initalizeLazy(Account entity) {
-        return entity;
+    protected void initalizeLazy(Account entity) {
     }
 
 }

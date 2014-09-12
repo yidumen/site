@@ -1,6 +1,5 @@
 package com.yidumen.dao.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.yidumen.dao.constant.TagType;
 import java.io.Serializable;
 import java.util.List;
@@ -38,7 +37,6 @@ public class Tag implements Serializable {
     
     private int hits;
 
-    @JsonIgnore
     @ManyToMany
     private List<Video> videos;
 

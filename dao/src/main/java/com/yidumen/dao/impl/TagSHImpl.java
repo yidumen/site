@@ -2,10 +2,9 @@ package com.yidumen.dao.impl;
 
 import com.yidumen.dao.TaoDAO;
 import com.yidumen.dao.entity.Tag;
+import com.yidumen.dao.framework.HibernateUtil;
 import java.util.List;
-import javax.inject.Inject;
-import org.hibernate.SessionFactory;
-import org.springframework.transaction.annotation.Transactional;
+import org.hibernate.Session;
 
 /**
  *
@@ -13,35 +12,31 @@ import org.springframework.transaction.annotation.Transactional;
  */
 public class TagSHImpl extends AbstractSHImpl<Tag> implements TaoDAO {
 
-    @Inject
-    private SessionFactory sessionFactory;
-
     public TagSHImpl() {
         super(Tag.class);
     }
 
-    @Transactional(value = "transactionManager", readOnly = true)
     @Override
     public List<Tag> findTags(int limit) {
-        return sessionFactory.getCurrentSession().getNamedQuery("Tag.OrderByHints")
+        final Session currentSession = HibernateUtil.getSessionFactory().getCurrentSession();
+        final List<Tag> result = currentSession.getNamedQuery("Tag.OrderByHints")
                 .setMaxResults(limit)
                 .list();
+        currentSession.getTransaction().commit();
+        return result;
     }
-    
+
     @Override
     public Tag find(String tagName) {
-        return (Tag) sessionFactory.getCurrentSession().getNamedQuery("Tag.findByname")
+        final Session currentSession = HibernateUtil.getSessionFactory().getCurrentSession();
+        final Tag result = (Tag) currentSession.getNamedQuery("Tag.findByname")
                 .setString("tagname", tagName)
                 .uniqueResult();
+        currentSession.getTransaction().commit();
+        return result;
     }
 
     @Override
-    protected SessionFactory getSessionFactory() {
-        return sessionFactory;
-    }
-
-    @Override
-    protected Tag initalizeLazy(Tag entity) {
-        return entity;
+    protected void initalizeLazy(Tag entity) {
     }
 }

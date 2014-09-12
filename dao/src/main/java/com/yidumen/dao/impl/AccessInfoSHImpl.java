@@ -2,8 +2,6 @@ package com.yidumen.dao.impl;
 
 import com.yidumen.dao.AccessInfoDAO;
 import com.yidumen.dao.entity.AccessInfo;
-import javax.inject.Inject;
-import org.hibernate.SessionFactory;
 
 /**
  *
@@ -11,21 +9,11 @@ import org.hibernate.SessionFactory;
  */
 public class AccessInfoSHImpl extends AbstractSHImpl<AccessInfo> implements AccessInfoDAO {
 
-    @Inject
-    private SessionFactory sessionFactory;
-
     public AccessInfoSHImpl() {
         super(AccessInfo.class);
     }
 
     @Override
-    protected SessionFactory getSessionFactory() {
-        return sessionFactory;
+    protected void initalizeLazy(AccessInfo entity) {
     }
-
-    @Override
-    protected AccessInfo initalizeLazy(AccessInfo entity) {
-        return entity;
-    }
-
 }

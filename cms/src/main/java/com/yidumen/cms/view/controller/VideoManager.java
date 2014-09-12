@@ -6,19 +6,18 @@ import com.yidumen.dao.entity.Video;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.Scope;
-import org.springframework.web.context.WebApplicationContext;
 
 /**
  *
  * @author 蔡迪旻 <yidumen.com>
  */
 @Named("video")
-@Scope(WebApplicationContext.SCOPE_SESSION)
+@ViewScoped
 public class VideoManager implements Serializable {
 
     private final Logger log = LoggerFactory.getLogger(VideoManager.class);

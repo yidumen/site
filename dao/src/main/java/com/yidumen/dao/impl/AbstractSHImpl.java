@@ -1,16 +1,15 @@
 package com.yidumen.dao.impl;
 
+import com.yidumen.dao.framework.HibernateUtil;
 import java.util.List;
 import org.hibernate.HibernateException;
-import org.hibernate.SessionFactory;
-import org.springframework.transaction.annotation.Transactional;
+import org.hibernate.Session;
 
 /**
  *
  * @author 蔡迪旻 <yidumen.com>
  * @param <T> 实体类
  */
-@Transactional
 public abstract class AbstractSHImpl<T> {
 
     private final Class<T> entityClass;
@@ -19,42 +18,50 @@ public abstract class AbstractSHImpl<T> {
         this.entityClass = entityClass;
     }
 
-    protected abstract SessionFactory getSessionFactory();
-
-    @Transactional("transactionManager")
     public void create(T entity) {
-        getSessionFactory().getCurrentSession().persist(entity);
+        final Session currentSession = HibernateUtil.getSessionFactory().getCurrentSession();
+        currentSession.beginTransaction();
+        currentSession.persist(entity);
+        currentSession.getTransaction().commit();
     }
 
-    @Transactional("transactionManager")
     public void edit(T entity) {
-        getSessionFactory().getCurrentSession().saveOrUpdate(entity);
+        final Session currentSession = HibernateUtil.getSessionFactory().getCurrentSession();
+        currentSession.beginTransaction();
+        currentSession.saveOrUpdate(entity);
+        currentSession.getTransaction().commit();
     }
 
-    @Transactional("transactionManager")
     public void remove(T entity) {
-        getSessionFactory().getCurrentSession().delete(entity);
+        final Session currentSession = HibernateUtil.getSessionFactory().getCurrentSession();
+        currentSession.beginTransaction();
+        currentSession.delete(entity);
+        currentSession.getTransaction().commit();
     }
 
-    @Transactional(value = "transactionManager", readOnly = true)
     public T find(Long id) {
-        T entity = (T) getSessionFactory().getCurrentSession().load(entityClass, id);
-        return initalizeLazy(entity);
+        final Session currentSession = HibernateUtil.getSessionFactory().getCurrentSession();
+        currentSession.beginTransaction();
+        final T result = (T) currentSession.load(entityClass, id);
+        initalizeLazy(result);
+        currentSession.getTransaction().commit();
+        return result;
     }
 
-    @Transactional(value = "transactionManager", readOnly = true)
     public List<T> findAll() {
-        List<T> result = getSessionFactory().getCurrentSession().createCriteria(entityClass).list();
-        return initalizeListLazy(result);
-        
+        final Session currentSession = HibernateUtil.getSessionFactory().getCurrentSession();
+        currentSession.beginTransaction();
+        final List<T> result = currentSession.createCriteria(entityClass).list();
+        initalizeListLazy(result);
+        currentSession.getTransaction().commit();
+        return result;
     }
 
-    protected List<T> initalizeListLazy(final List<T> list) throws HibernateException {
+    protected void initalizeListLazy(final List<T> list) throws HibernateException {
         for (T entity : list) {
             initalizeLazy(entity);
         }
-        return list;
     }
 
-    abstract protected T initalizeLazy(T entity);
+    abstract protected void initalizeLazy(T entity);
 }

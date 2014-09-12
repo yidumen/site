@@ -2,11 +2,10 @@ package com.yidumen.dao.impl;
 
 import com.yidumen.dao.SutraDAO;
 import com.yidumen.dao.entity.Sutra;
+import com.yidumen.dao.framework.HibernateUtil;
 import java.util.List;
-import javax.inject.Inject;
 import org.hibernate.Query;
-import org.hibernate.SessionFactory;
-import org.springframework.transaction.annotation.Transactional;
+import org.hibernate.Session;
 
 /**
  *
@@ -14,54 +13,53 @@ import org.springframework.transaction.annotation.Transactional;
  */
 public class SutraSHImpl extends AbstractSHImpl<Sutra> implements SutraDAO {
 
-    @Inject
-    private SessionFactory sessionFactory;
-
     public SutraSHImpl() {
         super(Sutra.class);
     }
 
     @Override
-    @Transactional(value = "transactionManager", readOnly = true)
     public List<Sutra> find(long leftValue, long rightValue) {
-        final Query q = sessionFactory.getCurrentSession().getNamedQuery("Sutra.findNodes")
+        final Session currentSession = HibernateUtil.getSessionFactory().getCurrentSession();
+        final List<Sutra> result = currentSession.getNamedQuery("Sutra.findNodes")
                 .setLong("leftValue", leftValue)
-                .setLong("rightValue", rightValue);
-        return q.list();
+                .setLong("rightValue", rightValue)
+                .list();
+        currentSession.getTransaction().commit();
+        return result;
     }
 
     @Override
-    @Transactional(value = "transactionManager", readOnly = true)
     public Sutra findByLeftvalue(long leftValue) {
-        return (Sutra) sessionFactory.getCurrentSession().getNamedQuery("Sutra.findByLeftValue")
+        final Session currentSession = HibernateUtil.getSessionFactory().getCurrentSession();
+        final Sutra result = (Sutra) currentSession.getNamedQuery("Sutra.findByLeftValue")
                 .setLong(1, leftValue)
                 .uniqueResult();
+        currentSession.getTransaction().commit();
+        return result;
     }
 
     @Override
-    @Transactional(value = "transactionManager", readOnly = true)
     public Sutra findByRightvalue(long rightValue) {
-        return (Sutra) sessionFactory.getCurrentSession().getNamedQuery("Sutra.findByLeftValue")
+        final Session currentSession = HibernateUtil.getSessionFactory().getCurrentSession();
+        final Sutra result = (Sutra) currentSession.getNamedQuery("Sutra.findByLeftValue")
                 .setLong(1, rightValue)
                 .uniqueResult();
+        currentSession.getTransaction().commit();
+        return result;
     }
 
     @Override
-    @Transactional(value = "transactionManager", readOnly = true)
     public List<Sutra> findParents(Sutra sutra) {
-        return sessionFactory.getCurrentSession().getNamedQuery("Sutra.findParents")
+        final Session currentSession = HibernateUtil.getSessionFactory().getCurrentSession();
+        final List<Sutra> result = currentSession.getNamedQuery("Sutra.findParents")
                 .setLong(1, sutra.getLeftValue())
                 .setLong(2, sutra.getRightValue())
                 .list();
+        currentSession.getTransaction().commit();
+        return result;
     }
 
     @Override
-    protected SessionFactory getSessionFactory() {
-        return sessionFactory;
-    }
-
-    @Override
-    protected Sutra initalizeLazy(Sutra entity) {
-        return entity;
+    protected void initalizeLazy(Sutra entity) {
     }
 }
