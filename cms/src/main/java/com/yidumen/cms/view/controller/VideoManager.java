@@ -3,19 +3,23 @@ package com.yidumen.cms.view.controller;
 import com.yidumen.cms.service.VideoService;
 import com.yidumen.dao.constant.VideoStatus;
 import com.yidumen.dao.entity.Video;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Scope;
+import org.springframework.web.context.WebApplicationContext;
 
 /**
  *
  * @author 蔡迪旻 <yidumen.com>
  */
 @Named("video")
-public class VideoManager {
+@Scope(WebApplicationContext.SCOPE_SESSION)
+public class VideoManager implements Serializable {
 
     private final Logger log = LoggerFactory.getLogger(VideoManager.class);
     @Inject
@@ -38,7 +42,13 @@ public class VideoManager {
     }
 
     public void updateVideo() {
+        log.debug("准备更新Video: {}", video.getTitle());
         service.updateVideo(video);
+    }
+
+    public void deleteVideo() {
+        log.debug("准备删除视频 {}", video.getTitle());
+        service.removeVideo(video);
     }
 
     public void refreshVideo(long id) {
@@ -84,7 +94,7 @@ public class VideoManager {
     }
 
     public void setCurPage(int curPage) {
-        if (curPage > pageCount || curPage < 0) {
+        if (curPage > pageCount || curPage <= 0) {
             return;
         }
         log.debug("curPage={} will chang to {}", this.curPage, curPage);

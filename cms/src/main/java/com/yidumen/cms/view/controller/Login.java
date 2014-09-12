@@ -1,35 +1,37 @@
 package com.yidumen.cms.view.controller;
 
 import com.yidumen.dao.entity.CmsUser;
-import org.springframework.stereotype.Controller;
+import java.io.Serializable;
+import javax.inject.Named;
+import org.springframework.context.annotation.Scope;
+import org.springframework.web.context.WebApplicationContext;
 
 /**
  *
  * @author 蔡迪旻 <yidumen.com>
  */
-@Controller
-public class Login {
+@Named
+@Scope(WebApplicationContext.SCOPE_SESSION)
+public class Login implements Serializable {
 
-    private CmsUser user;
-
+//    private CmsUser user;
     public Login() {
-        user = new CmsUser();
+//        user = new CmsUser();
     }
 
     public String login() {
-        if (user.getUsername().equals("admin") && user.getPassword().equals("admin")) {
+//        if (user.getUsername().equals("admin") && user.getPassword().equals("admin")) {
             return "framework?faces-redirect=true";
-        } else {
-            return null;
-        }
+//        } else {
+//            return null;
+//        }
     }
 
-    public CmsUser getUser() {
-        return user;
-    }
-
-    public void setUser(CmsUser user) {
-        this.user = user;
-    }
-
+//    public CmsUser getUser() {
+//        return user;
+//    }
+//
+//    public void setUser(CmsUser user) {
+//        this.user = user;
+//    }
 }
