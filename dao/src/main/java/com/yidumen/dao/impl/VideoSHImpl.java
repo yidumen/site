@@ -3,6 +3,7 @@ package com.yidumen.dao.impl;
 import com.yidumen.dao.VideoDAO;
 import com.yidumen.dao.constant.VideoStatus;
 import com.yidumen.dao.entity.Video;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.inject.Inject;
@@ -16,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
  *
  * @author 蔡迪旻 <yidumen.com>
  */
-public class VideoSHImpl extends AbstractSHImpl<Video> implements VideoDAO {
+public class VideoSHImpl extends AbstractSHImpl<Video> implements VideoDAO,Serializable {
 
     @Inject
     private SessionFactory sessionFactory;

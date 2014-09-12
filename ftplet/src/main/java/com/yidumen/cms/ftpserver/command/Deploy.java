@@ -93,7 +93,7 @@ public final class Deploy implements Command {
             }
         }
         fis.setAttribute("deployFiles", deployFiles);
-        console("命令执行完毕，如果没有后续操作将退出执行。");
+        fis.write(new DefaultFtpReply(200, "命令执行完毕，如果没有后续操作将返回。"));
     }
 
     private void deleteVideo(String filecode, String parent, String sub) {
@@ -111,7 +111,7 @@ public final class Deploy implements Command {
     }
 
     private void console(String message) {
-        fis.write(new DefaultFtpReply(666, message));
+        fis.write(new DefaultFtpReply(211, message));
     }
 
     public void setWorkdir(String workdir) {

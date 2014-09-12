@@ -153,13 +153,13 @@ public class DeployToOSS extends DefaultFtplet {
                     = client.completeMultipartUpload(completeMultipartUploadRequest);
             console(completeMultipartUploadResult.getKey() + " 上传完毕");
         });
-        console("部署至OSS的操作已完成");
+        session.write(new DefaultFtpReply(200, "部署至OSS的操作已完成"));
         return FtpletResult.DEFAULT;
     }
 
     private void console(String message) {
         try {
-            session.write(new DefaultFtpReply(666, message));
+            session.write(new DefaultFtpReply(211, message));
         } catch (FtpException ex) {
         }
     }

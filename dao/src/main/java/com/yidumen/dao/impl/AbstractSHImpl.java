@@ -1,8 +1,6 @@
 package com.yidumen.dao.impl;
 
-import com.yidumen.dao.entity.Video;
 import java.util.List;
-import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.springframework.transaction.annotation.Transactional;
