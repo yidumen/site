@@ -22,7 +22,7 @@ import javax.persistence.NamedQuery;
 @Entity
 @NamedQueries({
     @NamedQuery(name = "Tag.findByname", query = "SELECT t FROM Tag t WHERE t.tagname = :tagname"),
-    @NamedQuery(name = "Tag.OrderByHints", query = "SELECT t FROM Tag t ORDER BY t.hits DESC")
+    @NamedQuery(name = "Tag.OrderByHints", query = "SELECT t FROM Tag t WHERE t.type = com.yidumen.dao.constant.TagType.CONTENT ORDER BY t.hits DESC")
 })
 public class Tag implements Serializable {
 

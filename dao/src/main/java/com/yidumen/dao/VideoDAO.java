@@ -2,6 +2,7 @@ package com.yidumen.dao;
 
 import com.yidumen.dao.constant.VideoStatus;
 import com.yidumen.dao.entity.Video;
+import com.yidumen.dao.model.VideoQueryModel;
 import java.util.Date;
 import java.util.List;
 
@@ -28,5 +29,7 @@ public interface VideoDAO extends BaseDAO<Video> {
     List<Video> findRecommend();
 
     List<Video> getNewVideos(int limit);
+
+    List<Video> find(VideoQueryModel model);
     
 }

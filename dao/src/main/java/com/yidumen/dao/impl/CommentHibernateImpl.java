@@ -7,14 +7,9 @@ import com.yidumen.dao.entity.Comment;
  *
  * @author 蔡迪旻 <yidumen.com>
  */
-public class CommentSHImpl extends AbstractSHImpl<Comment> implements CommentDAO {
+public class CommentHibernateImpl extends AbstractHibernateImpl<Comment> implements CommentDAO {
 
-    public CommentSHImpl() {
+    public CommentHibernateImpl() {
         super(Comment.class);
     }
-
-    @Override
-    protected void initalizeLazy(Comment entity) {
-    }
-
 }

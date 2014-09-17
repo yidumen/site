@@ -10,11 +10,11 @@ import org.hibernate.Session;
  * @author 蔡迪旻 <yidumen.com>
  * @param <T> 实体类
  */
-public abstract class AbstractSHImpl<T> {
+public abstract class AbstractHibernateImpl<T> {
 
     private final Class<T> entityClass;
 
-    public AbstractSHImpl(Class<T> entityClass) {
+    public AbstractHibernateImpl(Class<T> entityClass) {
         this.entityClass = entityClass;
     }
 
@@ -63,5 +63,7 @@ public abstract class AbstractSHImpl<T> {
         }
     }
 
-    abstract protected void initalizeLazy(T entity);
+    protected void initalizeLazy(T entity) {
+        // Do nothing because implement by child.
+    };
 }

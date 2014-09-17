@@ -7,13 +7,9 @@ import com.yidumen.dao.entity.AccessInfo;
  *
  * @author 蔡迪旻 <yidumen.com>
  */
-public class AccessInfoSHImpl extends AbstractSHImpl<AccessInfo> implements AccessInfoDAO {
+public class AccessInfoHibernateImpl extends AbstractHibernateImpl<AccessInfo> implements AccessInfoDAO {
 
-    public AccessInfoSHImpl() {
+    public AccessInfoHibernateImpl() {
         super(AccessInfo.class);
-    }
-
-    @Override
-    protected void initalizeLazy(AccessInfo entity) {
     }
 }

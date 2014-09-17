@@ -2,11 +2,11 @@ package com.yidumen.dao.entity;
 
 import com.yidumen.dao.constant.VideoStatus;
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -32,7 +32,7 @@ import javax.persistence.OrderBy;
     @NamedQuery(name = "video.findByStatus",
                 query = "SELECT v FROM Video v WHERE v.status = :status ORDER BY v.sort DESC"),
     @NamedQuery(name = "video.findRecommend",
-                query = "SELECT v FROM Video v WHERE v.status = com.yidumen.dao.constant.VideoStatus.PUBLISH AND v.recommend = true ORDER BY v.sort DESC"),
+                query = "SELECT v FROM Video v WHERE v.status = com.yidumen.dao.constant.VideoStatus.PUBLISH AND v.recommend > 0 ORDER BY v.sort DESC"),
     @NamedQuery(name = "video.findNew",
                 query = "SELECT v FROM Video v WHERE v.status = com.yidumen.dao.constant.VideoStatus.PUBLISH ORDER BY v.pubDate DESC"),
     @NamedQuery(name = "video.findBetween",
@@ -81,17 +81,17 @@ public class Video implements Serializable {
     private List<Tag> tags;
 
     private String descrpition;
-    /**
-     * 视频时长，格式为：mm'ss"
-     */
+    private String note;
+    @Column(length = 5)
+    private String grade;
     @Basic(optional = false)
-    private String duration;
+    private Long duration;
 
     /**
      * 视频拍摄时间
      */
     @Basic(optional = false)
-    private Date shootTime;
+    private java.sql.Date shootTime;
 
     /**
      * 视频状态，可取的值：发布、审核、存档
@@ -102,7 +102,7 @@ public class Video implements Serializable {
 
     private boolean chatroomVideo;
 
-    private boolean recommend;
+    private int recommend;
 
     private Date pubDate;
 
@@ -162,19 +162,19 @@ public class Video implements Serializable {
         this.status = status;
     }
 
-    public String getDuration() {
+    public Long getDuration() {
         return duration;
     }
 
-    public void setDuration(final String duration) {
+    public void setDuration(Long duration) {
         this.duration = duration;
     }
 
-    public Date getShootTime() {
+    public java.sql.Date getShootTime() {
         return shootTime;
     }
 
-    public void setShootTime(Date shootTime) {
+    public void setShootTime(java.sql.Date shootTime) {
         this.shootTime = shootTime;
     }
 
@@ -218,11 +218,11 @@ public class Video implements Serializable {
         this.descrpition = descrpition;
     }
 
-    public boolean isRecommend() {
+    public int getRecommend() {
         return recommend;
     }
 
-    public void setRecommend(boolean recommend) {
+    public void setRecommend(int recommend) {
         this.recommend = recommend;
     }
 
@@ -234,25 +234,20 @@ public class Video implements Serializable {
         this.comments = comments;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 41 * hash + Objects.hashCode(this.id);
-        hash = 41 * hash + Objects.hashCode(this.title);
-        hash = 41 * hash + Objects.hashCode(this.file);
-        return hash;
+    public String getNote() {
+        return note;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Video other = (Video) obj;
-        return Objects.equals(this.id, other.id);
+    public void setNote(String note) {
+        this.note = note;
+    }
+
+    public String getGrade() {
+        return grade;
+    }
+
+    public void setGrade(String grade) {
+        this.grade = grade;
     }
 
 }

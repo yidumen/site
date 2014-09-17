@@ -7,10 +7,12 @@ import java.util.List;
  *
  * @author 蔡迪旻 <yidumen.com>
  */
-public interface TaoDAO extends BaseDAO<Tag> {
+public interface TagDAO extends BaseDAO<Tag> {
 
     Tag find(String tagName);
 
     List<Tag> findTags(int limit);
+
+    List<Tag> findVideoTags(final int limit);
     
 }
