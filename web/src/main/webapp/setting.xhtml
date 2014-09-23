@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <body>
+
+        <ui:composition template="./template/master.xhtml">
+            <ui:param name="nav" value="5" />
+            <ui:param name="title" value="个性设置" />
+            <ui:define name="head">
+                <style>
+                    body {
+                        color: #6c2201;
+                    }
+                    button {
+                        border: 0;
+                        background-color: transparent;
+                        margin-left: 18px;
+                        padding: 10px;
+                        outline: none;
+                    }
+                    .h3 {
+                        margin-top: 0px;
+                        margin-bottom: 30px;
+                    }
+                    .cur {
+                        background-color: #777;
+                        color: white;
+                        border-radius: 8px;
+                    }
+                </style>
+            </ui:define>
+            <ui:define name="content">
+                <div class="row">
+                    <h4 class="text-muted">在线视频清晰度</h4>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <button id="line720" type="button" class="h3" onclick="setOnline(720)">超清</button>
+                        <button id="line480" type="button" class="h3" onclick="setOnline(480)">高清</button>
+                        <button id="line360" type="button" class="h3" onclick="setOnline(360)">标清</button>
+                        <button id="line180" type="button" class="h3" onclick="setOnline(180)">流畅</button>
+                    </div>
+                </div>
+                <div class="row"><h4 class="text-muted">下载视频清晰度</h4></div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <button id="down720" type="button" class="h3" onclick="setDown(720)">超清</button>
+                        <button id="down480" type="button" class="h3" onclick="setDown(480)">高清</button>
+                        <button id="down360" type="button" class="h3" onclick="setDown(360)">标清</button>
+                        <button id="down180" type="button" class="h3" onclick="setDown(180)">流畅</button>
+                    </div>
+                </div>
+                <div class="row"><h4 class="text-muted">字体大小选择</h4></div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <button id="font14px" type="button" style="font-size: 14px" onclick="setFont('14px')">小</button>
+                        <button id="font18px" type="button" style="font-size: 18px" onclick="setFont('18px')">中</button>
+                        <button id="font24px" type="button" style="font-size: 24px" onclick="setFont('24px')">大</button>
+                        <button id="font28px" type="button" style="font-size: 28px" onclick="setFont('28px')">超大</button>
+                        <ul>
+                            <li class="h5 text-muted">字体大小主要影响正文。</li>
+                            <li class="h5 text-muted">默认字体为“小”。</li>
+                            <li class="h5 text-muted">改变字体大小会影响页面布局。</li>
+                        </ul>
+                    </div>
+                </div>
+            </ui:define>
+            <ui:define name="js">
+                <script type="text/javascript" src="/resources/js/setting.js"></script>
+            </ui:define>
+        </ui:composition>
+
+    </body>
+</html>

@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<faces-config version="2.2"
+              xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>home</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>lotus</from-outcome>
+            <to-view-id>/lotus.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>buddhism</from-outcome>
+            <to-view-id>/buddhism.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>chatroom</from-outcome>
+            <to-view-id>/chatroom.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>goods</from-outcome>
+            <to-view-id>/goods.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>friends</from-outcome>
+            <to-view-id>/friends.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <managed-bean eager="true">
+        <managed-bean-name>hibernateControl</managed-bean-name>
+        <managed-bean-class>com.yidumen.web.framework.ApplicationControl</managed-bean-class>
+        <managed-bean-scope>application</managed-bean-scope>
+        <description>release hibernate session factory on application close</description>
+    </managed-bean>
+</faces-config>

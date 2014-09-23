@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="/template/master.xhtml">
+            <ui:param name="nav" value="4" />
+            <ui:param name="title" value="法界之心" />
+            <ui:define name="head">
+            </ui:define>
+
+            <ui:define name="title">
+                杨宁老师书籍
+            </ui:define>
+
+            <ui:define name="content">
+                <div class="page-header">
+                    <h2>星路</h2>
+                </div>
+                <h3>序言</h3>
+                <p>一切众生皆具如来智慧德相，皆因分别执着不能证得。这是法身佛的智慧，这种智慧即法界之心。</p>
+                <p class="text-right">作者</p>
+                <p class="text-right">二零零八年五月二十日</p>
+                <hr />
+                <ul class="list-unstyled">
+                    <li><h3>第一部分  空花</h3></li>
+                    <ul>
+                        <ui:repeat value="#{goods.sutras}" var="one" size="27" offset="1">
+                            <li>
+                                <h:link value="#{one.partIdentifier} #{one.title}"
+                                        outcome="/content/goods/heart">
+                                    <f:param name="id" value="#{one.id}" />
+                                </h:link>
+                            </li>
+                        </ui:repeat>
+                    </ul>
+                    <li><h3>第二部分  如月</h3></li>
+                    <ol>
+                        <li><h5>四十九天闭关日记</h5></li>
+                        <ul>
+                            <ui:repeat value="#{goods.sutras}" var="two" offset="29" size="37">
+                                <li>
+                                    <h:link value="#{two.title}" outcome="/content/goods/heart">
+                                        <f:param name="id" value="#{two.id}" />
+                                    </h:link>
+                                </li>
+                            </ui:repeat>
+                        </ul>
+                        <li><h5>西藏之旅</h5></li>
+                        <ul>
+                            <ui:repeat value="#{goods.sutras}" var="two" offset="38" size="51">
+                                <li>
+                                    <h:link value="#{two.title}" outcome="/content/goods/heart">
+                                        <f:param name="id" value="#{two.id}" />
+                                    </h:link>
+                                </li>
+                            </ui:repeat>
+                        </ul>
+                        <li><h5>终南山百日闭关纪实</h5></li>
+                        <ul>
+                            <ui:repeat value="#{goods.sutras}" var="two" offset="52" size="62">
+                                <li>
+                                    <h:link value="#{two.title}" outcome="/content/goods/heart">
+                                        <f:param name="id" value="#{two.id}" />
+                                    </h:link>
+                                </li>
+                            </ui:repeat>
+                        </ul>
+                        <ui:repeat value="#{goods.sutras}" var="two" offset="62" size="64">
+                            <li><h5>
+                                    <h:link value="#{two.title}" outcome="/content/goods/heart">
+                                        <f:param name="id" value="#{two.id}" />
+                                    </h:link>
+                                </h5></li>
+                        </ui:repeat>
+                    </ol>
+                </ul>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

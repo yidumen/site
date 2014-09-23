@@ -16,5 +16,7 @@ public interface SutraDAO extends BaseDAO<Sutra> {
     Sutra findByRightvalue(long rightValue);
 
     List<Sutra> findParents(Sutra sutra);
-    
+
+    Sutra find(String title);
+
 }

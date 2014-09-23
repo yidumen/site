@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:ydm="http://xmlns.jcp.org/jsf/composite/ezcomp"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <body>
+
+        <ui:composition template="/template/master.xhtml">
+            <ui:param name="nav" value="2" />
+            <ui:param name="title" value="了解佛教" />
+            <ui:define name="head">
+            </ui:define>
+
+            <ui:define name="title">
+                了解佛教-目录
+            </ui:define>
+
+            <ui:define name="content">
+                <div class="page-header">
+                    <h2><small>#{buddhist.buddhism.partIdentifier}</small>#{buddhist.buddhism.title}</h2>
+                </div>
+                <ydm:videoPlayer source="#{buddhist.buddhism.video}" rendered="#{not empty buddhist.buddhism.video}" />
+                <h:outputText styleClass="text-muted" escape="false" value="#{buddhist.buddhism.content}" />
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

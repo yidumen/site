@@ -1,0 +1,124 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ydm="http://xmlns.jcp.org/jsf/composite/ezcomp"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./template/master.xhtml">
+            <ui:param name="nav" value="1" />
+            <ui:param name="title" value="妙法莲华经" />
+            <ui:define name="head">
+                <h:outputStylesheet>
+                    #lotuslist {margin-top:50px;}
+                </h:outputStylesheet>
+            </ui:define>
+
+            <ui:define name="title">
+                妙法莲华经
+            </ui:define>
+
+            <ui:define name="content">
+                <div class="row">
+                    <h:form prependId="false">
+                        <ydm:videoPlayer styleClass="col-xs-12 col-sm-8 col-sm-offset-1" source="#{lotus.videos[lotus.i]}" />
+                        <div class="row ydm_label">
+                            <span class="col-xs-3 col-sm-2">
+                                <h:commandLink value="概述" actionListener="#{lotus.changeVideoIndex(0)}">
+                                    <f:ajax render="@form" />
+                                </h:commandLink>
+                            </span>
+                            <span class="col-xs-3 col-sm-2">
+                                <h:commandLink value="讲义（一）" actionListener="#{lotus.changeVideoIndex(0)}">
+                                    <f:ajax render="@form" />
+                                </h:commandLink>
+                            </span>
+                            <span class="col-xs-3 col-sm-2">
+                                <h:commandLink value="讲义（二）" actionListener="#{lotus.changeVideoIndex(1)}">
+                                    <f:ajax render="@form" />
+                                </h:commandLink>
+                            </span>
+                            <span class="col-xs-3 col-sm-2">
+                                <h:commandLink value="讲义（三）" actionListener="#{lotus.changeVideoIndex(2)}">
+                                    <f:ajax render="@form" />
+                                </h:commandLink>
+                            </span>
+                            <span class="col-xs-3 col-sm-2">
+                                <h:commandLink value="讲义（四）" actionListener="#{lotus.changeVideoIndex(3)}">
+                                    <f:ajax render="@form" />
+                                </h:commandLink>
+                            </span>
+                            <span class="col-xs-3 col-sm-2">
+                                <h:commandLink value="讲义（五）" actionListener="#{lotus.changeVideoIndex(4)}">
+                                    <f:ajax render="@form" />
+                                </h:commandLink>
+                            </span>
+                            <span class="col-xs-3 col-sm-2">
+                                <h:commandLink value="讲义（六）" actionListener="#{lotus.changeVideoIndex(5)}">
+                                    <f:ajax render="@form" />
+                                </h:commandLink>
+                            </span>
+                        </div>
+                    </h:form>
+                </div>
+                <div class="row">
+                    <div class="col-xs-11 dropdown ydm_translate">
+                        <button class="btn button_style" data-toggle="modal" data-target="#lotuslist">
+                            原经文及白话释义
+                        </button>
+                    </div>
+                </div>
+                <!-- Modal -->
+                <div class="modal" id="lotuslist" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                <h4 class="modal-title text-nowrap" id="myModalLabel">原经文及释义<small>《白话佛教十三经》-中华书局出版</small></h4>
+                            </div>
+                            <div class="modal-body">
+                                <ul class="list-group">
+                                    <ui:repeat value="#{lotus.lotusSutras}" var="sutra">
+                                        <li class="list-group-item">
+                                            <h:outputText value="#{sutra.partIdentifier} " />
+                                            <h:link value="#{sutra.title}" outcome="/content/lotus/sutra">
+                                                <f:param name="oid" value="#{sutra.originalId}" />
+                                            </h:link>
+                                            <h:link styleClass="label label-warning pull-right" value="释义" outcome="/content/lotus/sutra">
+                                                <f:param name="oid" value="#{sutra.vernacularId}" />
+                                            </h:link>
+                                        </li>
+                                    </ui:repeat>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="ydm_video_list">
+                    <h3>漫游妙法莲华</h3>
+                    <ul>
+                        <li>
+                            <h:link value="妙法莲华经对现代众生的意义"
+                                    outcome="content/lotus/sutra">
+                                <f:param name="oid" value="2052" />
+                            </h:link>
+                        </li>
+                        <li>
+                            <h:link value="妙法莲华经在说什么？妙法莲华经在佛法中的地位和价值"
+                                    outcome="content/lotus/sutra">
+                                <f:param name="oid" value="1995" />
+                            </h:link>
+                        </li>
+                    </ul>
+                </div>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

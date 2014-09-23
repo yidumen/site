@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <body>
+
+        <ui:composition template="../../template/master.xhtml">
+            <ui:param name="nav" value="4" />
+            <ui:param name="title" value="书籍赠阅" />
+            <ui:define name="head">
+            </ui:define>
+
+            <ui:define name="title">
+                杨宁老师书籍
+            </ui:define>
+
+            <ui:define name="content">
+                <h:form prependId="false">
+                    <div class="panel panel-default">
+                        <div class="panel-heading panel-title">信息确认</div>
+                        <div class="panel-body">
+                            <dl class="dl-horizontal">
+                                <dt>收件人姓名</dt>
+                                <dd>#{goods.goods.name}</dd>
+                                <dt>联系电话</dt>
+                                <dd>#{goods.goods.phone}</dd>
+                                <dt>收件地址</dt>
+                                <dd>#{goods.goods.address}</dd>
+                            </dl>
+                            <p>请核对以上信息，确认无误后再确认提交。</p>
+                            <h:button styleClass="btn btn-default" value="返回修改" outcome="/content/goods/book" />
+                            <h:commandButton styleClass="btn btn-primary" value="提交" action="#{goods.createGoods()}" />
+                        </div>
+                    </div>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

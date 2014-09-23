@@ -36,13 +36,13 @@ import javax.persistence.OrderBy;
     @NamedQuery(name = "video.findNew",
                 query = "SELECT v FROM Video v WHERE v.status = com.yidumen.dao.constant.VideoStatus.PUBLISH ORDER BY v.pubDate DESC"),
     @NamedQuery(name = "video.findBetween",
-                query = "SELECT v FROM Video v WHERE v.status = com.yidumen.dao.constant.VideoStatus.PUBLISH AND v.shootTime BETWEEN ?1 AND ?2 ORDER BY v.shootTime DESC"),
+                query = "SELECT v FROM Video v WHERE v.status = com.yidumen.dao.constant.VideoStatus.PUBLISH AND v.shootTime BETWEEN ? AND ? ORDER BY v.shootTime DESC"),
     @NamedQuery(name = "video.getAutoPlayList",
-                query = "SELECT v FROM Video v WHERE v.status = com.yidumen.dao.constant.VideoStatus.PUBLISH AND LOCATE('A',v.file) = 0 AND v.shootTime <= ?1 AND v.file <= ?2 ORDER BY v.shootTime, v.file"),
+                query = "SELECT v FROM Video v WHERE v.status = com.yidumen.dao.constant.VideoStatus.PUBLISH AND LOCATE('A',v.file) = 0 AND v.shootTime <= ? AND v.file <= ? ORDER BY v.shootTime, v.file"),
     @NamedQuery(name = "video.getAutoPlayList2",
-                query = "SELECT v FROM Video v WHERE v.status = com.yidumen.dao.constant.VideoStatus.PUBLISH AND LOCATE('A',v.file) = 0 AND v.shootTime >= ?1 AND v.file > ?2 ORDER BY v.shootTime, v.file"),
+                query = "SELECT v FROM Video v WHERE v.status = com.yidumen.dao.constant.VideoStatus.PUBLISH AND LOCATE('A',v.file) = 0 AND v.shootTime >= ? AND v.file > ? ORDER BY v.shootTime, v.file"),
     @NamedQuery(name = "video.getAutoPlayList3",
-                query = "SELECT v FROM Video v WHERE v.status = com.yidumen.dao.constant.VideoStatus.PUBLISH AND LOCATE('A',v.file) = 0 AND v.shootTime <= ?1 ORDER BY v.shootTime, v.file")
+                query = "SELECT v FROM Video v WHERE v.status = com.yidumen.dao.constant.VideoStatus.PUBLISH AND LOCATE('A',v.file) = 0 AND v.shootTime <= ? ORDER BY v.shootTime, v.file")
 })
 @NamedNativeQuery(name = "video.dateGroup",
                   query = "SELECT DATE_FORMAT(SHOOTTIME,'%Y%m') AS 'date', count(*) AS 'count' "

@@ -10,6 +10,6 @@
     <module>dao</module>
     <module>cms</module>
     <module>ftplet</module>
-    <module>SpringOnACE</module>
+    <module>web</module>
   </modules>
 </project>

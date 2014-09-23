@@ -1,0 +1,114 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="/template/master.xhtml">
+            <ui:param name="nav" value="2" />
+            <ui:param name="title" value="学习佛法" />
+            <ui:define name="head">
+            </ui:define>
+
+            <ui:define name="title">
+                学习佛法
+            </ui:define>
+
+            <ui:define name="content">
+                <div class="page-header">
+                    <h2>学习佛法</h2>
+                </div>
+                <ul class="list-unstyled">
+                    <li>
+                        <h3>
+                            <h:link value="序言" outcome="/content/buddhism/study">
+                                <f:param name="id" value="#{buddhist.buddhisms[0].id}" />
+                            </h:link>
+                        </h3>
+                    </li>
+                    <li><h3>第一部分 断疑与了解</h3></li>
+                    <ul>
+                        <ui:repeat value="#{buddhist.buddhisms}" var="one" size="13" offset="2">
+                            <li>
+                                <h:link value="#{one.partIdentifier} #{one.title}"
+                                        outcome="/content/buddhism/study">
+                                    <f:param name="id" value="#{one.id}" />
+                                </h:link>
+                            </li>
+                        </ui:repeat>
+                    </ul>
+                    <li><h3>第二部分  佛学基础知识</h3></li>
+                    <ul>
+                        <li><h5>大乘佛法</h5></li>
+                        <ul>
+                            <ui:repeat value="#{buddhist.buddhisms}" var="two" offset="15" size="24">
+                                <li>
+                                    <h:link value="#{two.partIdentifier} #{two.title}" outcome="/content/buddhism/study">
+                                        <f:param name="id" value="#{two.id}" />
+                                    </h:link>
+                                </li>
+                            </ui:repeat>
+                        </ul>
+                        <li><h5>密乘佛法</h5></li>
+                        <ul>
+                            <ui:repeat value="#{buddhist.buddhisms}" var="two" offset="25" size="27">
+                                <li>
+                                    <h:link value="#{two.partIdentifier} #{two.title}" outcome="/content/buddhism/study">
+                                        <f:param name="id" value="#{two.id}" />
+                                    </h:link>
+                                </li>
+                            </ui:repeat>
+                        </ul>
+                        <li><h5>小乘佛法</h5></li>
+                        <ul>
+                            <ui:repeat value="#{buddhist.buddhisms}" var="two" offset="28" size="33">
+                                <li>
+                                    <h:link value="#{two.partIdentifier} #{two.title}" outcome="/content/buddhism/study">
+                                        <f:param name="id" value="#{two.id}" />
+                                    </h:link>
+                                </li>
+                            </ui:repeat>
+                        </ul>
+                        <li><h5>附录</h5></li>
+                        <ul>
+                            <ui:repeat value="#{buddhist.buddhisms}" var="two" offset="34" size="35">
+                                <li>
+                                    <h:link value="#{two.partIdentifier} #{two.title}" outcome="/content/buddhism/study">
+                                        <f:param name="id" value="#{two.id}" />
+                                    </h:link>
+                                </li>
+                            </ui:repeat>
+                        </ul>
+                    </ul>
+                    <li><h3>第三部分 在家人修行的体会</h3></li>
+                    <ul>
+                        <ui:repeat value="#{buddhist.buddhisms}" var="three" size="70" offset="36">
+                            <li>
+                                <h:link value="#{three.partIdentifier} #{three.title}"
+                                        outcome="/content/buddhism/study">
+                                    <f:param name="id" value="#{three.id}" />
+                                </h:link>
+                            </li>
+                        </ui:repeat>
+                    </ul>
+                    <li><h3>第四部分 佛学基础概念</h3></li>
+                    <ul>
+                        <ui:repeat value="#{buddhist.buddhisms}" var="three" offset="71">
+                            <li>
+                                <h:link value="#{three.partIdentifier} #{three.title}"
+                                        outcome="/content/buddhism/study">
+                                    <f:param name="id" value="#{three.id}" />
+                                </h:link>
+                            </li>
+                        </ui:repeat>
+                    </ul>
+                </ul>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

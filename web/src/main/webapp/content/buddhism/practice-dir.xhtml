@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="/template/master.xhtml">
+            <ui:param name="nav" value="2" />
+            <ui:param name="title" value="修证佛法" />
+            <ui:define name="head">
+            </ui:define>
+
+            <ui:define name="title">
+                修证佛法
+            </ui:define>
+
+            <ui:define name="content">
+                <div class="page-header">
+                    <h2>修证佛法</h2>
+                </div>
+                <ul class="list-unstyled">
+                    <ui:repeat value="#{buddhist.buddhisms}" var="buddhism">
+                        <li>
+                            <h4>
+                                <h:link value="#{buddhism.partIdentifier} #{buddhism.title}" outcome="/content/buddhism/practice">
+                                    <f:param name="id" value="#{buddhism.id}" />
+                                </h:link>
+                            </h4>
+                        </li>
+                    </ui:repeat>
+                </ul>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

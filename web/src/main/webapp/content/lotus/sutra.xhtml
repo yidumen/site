@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <body>
+
+        <ui:composition template="/template/master.xhtml">
+            <ui:param name="nav" value="1" />
+            <ui:param name="title" value="妙法莲华经" />
+            <ui:define name="head">
+            </ui:define>
+
+            <ui:define name="title">
+                妙法莲华经
+            </ui:define>
+
+            <ui:define name="content">
+                <div class="page-header">
+                    <h2><small>#{lotus.sutra.partIdentifier}</small>#{lotus.sutra.title}</h2>
+                </div>
+                <h:outputText styleClass="text-muted" escape="false" value="#{lotus.sutra.content}" />
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:ydm="http://xmlns.jcp.org/jsf/composite/ezcomp">
+
+    <body>
+
+        <ui:composition template="/template/master.xhtml">
+            <ui:param name="nav" value="3" />
+            <ui:param name="title" value="视频标签" />
+            <ui:define name="head">
+            </ui:define>
+
+            <ui:define name="title">
+                杨老师聊天视频
+            </ui:define>
+
+            <ui:define name="content">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">包含内容 #{chatroom.tag.tagname} 的视频</div>
+                            <div class="list-group">
+                                <ui:repeat value="#{chatroom.tag.videos}" var="video">
+                                    <ydm:videoListItem styleClass="list-group-item" video="#{video}" />
+                                </ui:repeat>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

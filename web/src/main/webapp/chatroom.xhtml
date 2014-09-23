@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:ydm="http://xmlns.jcp.org/jsf/composite/ezcomp">
+
+    <body>
+
+        <ui:composition template="./template/master.xhtml">
+            <ui:param name="nav" value="3" />
+            <ui:param name="title" value="聊天室视频" />
+            <ui:define name="head">
+                <style type="text/css">
+                    .list-group-item {
+                        border-top-left-radius: 0;
+                        border-top-right-radius: 0;
+                        border: 0px;
+                        border-bottom: 1px solid #ddd;
+                        background-color: transparent;
+                    }
+                </style>
+            </ui:define>
+
+            <ui:define name="title">
+                杨老师聊天视频
+            </ui:define>
+
+            <ui:define name="content">
+                <div class="row">
+                    <ydm:videoPlayer source="#{chatroom.video}" />
+                </div>
+                <div class="row" style="margin-top: 20px">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="active"><a href="#label" role="tab" data-toggle="tab">相关内容</a></li>
+                        <li><a href="#sameday" role="tab" data-toggle="tab">当日视频</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane" id="sameday">
+                            <div class="list-group">
+                                <ui:repeat value="#{chatroom.videos}" var="video">
+                                    <ydm:videoListItem styleClass="list-group-item" video="#{video}" />
+                                </ui:repeat>
+                            </div>
+                        </div>
+                        <div class="tab-pane active" id="label">
+                            <div class="list-group">
+                                <ui:repeat value="#{chatroom.video.tags}" var="tag">
+                                    <ui:repeat value="#{tag.videos}" var="v">
+                                        <ydm:videoListItem styleClass="list-group-item" video="#{v}"/>
+                                    </ui:repeat>
+                                </ui:repeat>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

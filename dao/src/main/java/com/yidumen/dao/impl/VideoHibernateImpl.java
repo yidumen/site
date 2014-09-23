@@ -13,8 +13,6 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
@@ -23,6 +21,7 @@ import org.hibernate.criterion.Restrictions;
  *
  * @author 蔡迪旻 <yidumen.com>
  */
+@SuppressWarnings("unchecked")
 public class VideoHibernateImpl extends AbstractHibernateImpl<Video> implements VideoDAO, Serializable {
 
     public VideoHibernateImpl() {
@@ -31,116 +30,79 @@ public class VideoHibernateImpl extends AbstractHibernateImpl<Video> implements 
 
     @Override
     public List<Video> find(final VideoStatus videoStatus) {
-        final Session currentSession = HibernateUtil.getSessionFactory().getCurrentSession();
-        final Transaction transaction = currentSession.beginTransaction();
-        final List<Video> result = currentSession.getNamedQuery("video.findByStatus")
-                .setParameter(1, videoStatus)
+        final List<Video> result = HibernateUtil.getSessionFactory().getCurrentSession().getNamedQuery("video.findByStatus")
+                .setParameter(0, videoStatus)
                 .list();
-        transaction.commit();
         return result;
     }
 
     @Override
     public List<Video> getNewVideos(final int limit) {
-        final Session currentSession = HibernateUtil.getSessionFactory().getCurrentSession();
-        final Transaction transaction = currentSession.beginTransaction();
-        final List<Video> result = currentSession.getNamedQuery("video.findNew")
+        final List<Video> result = HibernateUtil.getSessionFactory().getCurrentSession().getNamedQuery("video.findNew")
                 .setMaxResults(limit).list();
-        initalizeListLazy(result);
-        transaction.commit();
         return result;
     }
 
     @Override
     public List<Video> findRecommend() {
-        final Session currentSession = HibernateUtil.getSessionFactory().getCurrentSession();
-        final Transaction transaction = currentSession.beginTransaction();
-        final List<Video> result = currentSession.getNamedQuery("video.findRecommend").list();
-        initalizeListLazy(result);
-        transaction.commit();
+        final List<Video> result = HibernateUtil.getSessionFactory().getCurrentSession().getNamedQuery("video.findRecommend").list();
         return result;
     }
 
     @Override
-    public List<Video> dateGroup() {
-        final Session currentSession = HibernateUtil.getSessionFactory().getCurrentSession();
-        final Transaction transaction = currentSession.beginTransaction();
-        final List<Video> result = currentSession.getNamedQuery("video.dateGroup").list();
-        initalizeListLazy(result);
-        transaction.commit();
+    public List dateGroup() {
+        final List result = HibernateUtil.getSessionFactory().getCurrentSession().getNamedQuery("video.dateGroup").list();
         return result;
     }
 
     @Override
     public List<Video> find(final Date startTime, final Date endTime) {
-        final Session currentSession = HibernateUtil.getSessionFactory().getCurrentSession();
-        final Transaction transaction = currentSession.beginTransaction();
-        final List<Video> result = currentSession.getNamedQuery("video.findBetween")
-                .setDate(1, new java.sql.Date(startTime.getTime()))
-                .setDate(2, new java.sql.Date(endTime.getTime()))
+        final List<Video> result = HibernateUtil.getSessionFactory().getCurrentSession().getNamedQuery("video.findBetween")
+                .setDate(0, new java.sql.Date(startTime.getTime()))
+                .setDate(1, new java.sql.Date(endTime.getTime()))
                 .list();
-        initalizeListLazy(result);
-        transaction.commit();
         return result;
     }
 
     @Override
     public Video find(final String file) {
-        final Session currentSession = HibernateUtil.getSessionFactory().getCurrentSession();
-        final Transaction transaction = currentSession.beginTransaction();
-        final Video result = (Video) currentSession.getNamedQuery("video.findByFile")
+        final Video result = (Video) HibernateUtil.getSessionFactory().getCurrentSession().getNamedQuery("video.findByFile")
                 .setString("file", file)
                 .uniqueResult();
-        initalizeLazy(result);
-        transaction.commit();
         return result;
     }
 
     @Override
     public List<Video> find(final Date shootTime, final String file) {
-        final Session currentSession = HibernateUtil.getSessionFactory().getCurrentSession();
-        final Transaction transaction = currentSession.beginTransaction();
-        final List<Video> result = currentSession.getNamedQuery("video.getAutoPlayList")
-                .setDate(1, shootTime)
-                .setString(2, file)
+        final List<Video> result = HibernateUtil.getSessionFactory().getCurrentSession().getNamedQuery("video.getAutoPlayList")
+                .setDate(0, shootTime)
+                .setString(1, file)
                 .list();
-        initalizeListLazy(result);
-        transaction.commit();
         return result;
     }
 
     @Override
     public List<Video> find(final Date shootTime, final String file, final int limit) {
-        final Session currentSession = HibernateUtil.getSessionFactory().getCurrentSession();
-        final Transaction transaction = currentSession.beginTransaction();
-        final List<Video> result = currentSession.getNamedQuery("video.getAutoPlayList2")
-                .setDate(1, shootTime)
-                .setString(2, file)
+        final List<Video> result = HibernateUtil.getSessionFactory().getCurrentSession().getNamedQuery("video.getAutoPlayList2")
+                .setDate(0, shootTime)
+                .setString(1, file)
                 .setMaxResults(limit)
                 .list();
-        initalizeListLazy(result);
-        transaction.commit();
         return result;
     }
 
     @Override
     public List<Video> find(final Date shootTime, final int limit) {
-        final Session currentSession = HibernateUtil.getSessionFactory().getCurrentSession();
-        final Transaction transaction = currentSession.beginTransaction();
-        final List<Video> result = currentSession.getNamedQuery("video.getAutoPlayList3")
-                .setDate(1, shootTime)
+        final List<Video> result = HibernateUtil.getSessionFactory().getCurrentSession().getNamedQuery("video.getAutoPlayList3")
+                .setDate(0, shootTime)
                 .setMaxResults(limit)
                 .list();
-        initalizeListLazy(result);
-        transaction.commit();
         return result;
     }
 
     @Override
     public List<Video> find(VideoQueryModel model) {
-        final Session currentSession = HibernateUtil.getSessionFactory().getCurrentSession();
-        final Transaction transaction = currentSession.beginTransaction();
-        final Criteria criteria = currentSession.createCriteria(Video.class);
+        final Criteria criteria = HibernateUtil.getSessionFactory().getCurrentSession().createCriteria(Video.class);
         if (model.getSort2() > 0) {
             criteria.add(Restrictions.between("sort", model.getSort(), model.getSort2()));
         }
@@ -215,7 +177,6 @@ public class VideoHibernateImpl extends AbstractHibernateImpl<Video> implements 
             criteria.setMaxResults(new Long(model.getLimit()).intValue());
         }
         final List<Video> result = criteria.list();
-        transaction.commit();
         return result;
     }
 

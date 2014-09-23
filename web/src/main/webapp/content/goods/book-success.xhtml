@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <body>
+
+        <ui:composition template="../../template/master.xhtml">
+            <ui:param name="nav" value="4" />
+            <ui:param name="title" value="书籍赠阅" />
+            <ui:define name="head">
+            </ui:define>
+
+            <ui:define name="title">
+                杨宁老师书籍
+            </ui:define>
+
+            <ui:define name="content">
+                <div class="panel panel-success">
+                    <div class="panel-heading panel-title">信息已提交</div>
+                    <div class="panel-body">
+                        <p>您的信息已成功提交，我们将尽快为您投送书籍。</p>
+                        <p>敬请期待。</p>
+                        <p>您可以从导航栏继续浏览其它内容。点击这里
+                            <h:link value="返回首页" outcome="home" />
+                        </p>
+                    </div>
+                </div>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

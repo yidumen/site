@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pretty-config xmlns="http://ocpsoft.com/xml/ns/prettyfaces" 
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+               xsi:schemaLocation="http://ocpsoft.com/xml/ns/prettyfaces
+               http://ocpsoft.com/xml/ns/prettyfaces/ocpsoft-pretty-faces-3.3.3.xsd">
+    <!--<rewrite inbound="false" outbound="true" match="(?i)^(.*);jsessionid=w+(.*)" substitute="$1$2" />-->
+    <url-mapping id="home" onPostback="false"> 
+        <pattern value="/" /> 
+        <view-id value="/index.jsf" />
+    </url-mapping>
+    
+    <!--妙法莲华经-->
+    <url-mapping id="lotus" onPostback="false">
+        <pattern value="/妙法莲华经" />
+        <view-id value="/lotus.jsf" />
+        <action>#{lotus.initLotus}</action>
+    </url-mapping>
+    <url-mapping id = "sutra" parentId = "lotus" onPostback="false">
+        <pattern value="/#{oid:lotus.oid}" /> 
+        <view-id value="/content/lotus/sutra.jsf" />
+        <action>#{lotus.loadSutra}</action>
+    </url-mapping>
+    <!--end-->
+    <!--佛法-->
+    <url-mapping id="buddhism" onPostback="false">
+        <pattern value="/佛法" />
+        <view-id value="/buddhism.jsf" />
+    </url-mapping>
+    <url-mapping id = "known-dir" parentId="buddhism" onPostback="false">
+        <pattern value="/了解佛教/目录" />
+        <view-id value="/content/buddhism/known-dir.jsf" />
+        <action>#{buddhist.initKnownDir}</action>
+    </url-mapping>
+    <url-mapping id = "known-reading" parentId="buddhism" onPostback="false">
+        <pattern value="/了解佛教/正文/#{id:buddhist.id}" />
+        <view-id value="/content/buddhism/known.jsf" />
+        <action>#{buddhist.initKnown}</action>
+    </url-mapping>
+    <url-mapping id = "dir-study" parentId="buddhism" onPostback="false">
+        <pattern value="/学习佛法/目录" />
+        <view-id value="/content/buddhism/study-dir.jsf" />
+        <action>#{buddhist.initStudyDir}</action>
+    </url-mapping>
+    <url-mapping id = "reading-study" parentId="buddhism" onPostback="false">
+        <pattern value="/学习佛法/正文/#{id:buddhist.id}" />
+        <view-id value="/content/buddhism/study.jsf" />
+        <action>#{buddhist.initStudy}</action>
+    </url-mapping>
+    <url-mapping id = "dir-practice" parentId="buddhism" onPostback="false">
+        <pattern value="/修证佛法/目录" />
+        <view-id value="/content/buddhism/practice-dir.jsf" />
+        <action>#{buddhist.initPracticeDir}</action>
+    </url-mapping>
+    <url-mapping id = "reading-practice" parentId="buddhism" onPostback="false">
+        <pattern value="/修证佛法/正文/#{id:buddhist.id}" />
+        <view-id value="/content/buddhism/practice.jsf" />
+        <action>#{buddhist.initStudy}</action>
+    </url-mapping>
+    <!--end-->
+
+    <!--聊天室-->
+    <url-mapping id="top-new" onPostback="false">
+        <pattern value="/聊天室视频" />
+        <view-id value="/content/video/top-new.jsf" />
+        <action>#{chatroom.loadpage}</action>
+    </url-mapping>
+    <url-mapping id = "video-date" parentId="top-new" onPostback="false">
+        <pattern value="/拍摄日期" />
+        <view-id value="/content/video/date-list.jsf" />
+        <action>#{chatroom.initDate}</action>
+    </url-mapping>
+    <url-mapping id = "videoYear" parentId="top-new" onPostback="false">
+        <pattern value="/拍摄日期/#{year:chatroom.year}" />
+        <view-id value="/content/video/year.jsf" />
+        <action>#{chatroom.initYear}</action>
+    </url-mapping>
+    <url-mapping id = "videoMonth" parentId="videoYear" onPostback="false">
+        <pattern value="/#{month:chatroom.month}" />
+        <view-id value="/content/video/month.jsf" />
+        <action>#{chatroom.initMonth}</action>
+    </url-mapping>
+    <url-mapping id = "video-tags" parentId="top-new" onPostback="false">
+        <pattern value="/标签" />
+        <view-id value="/content/video/tags.jsf" />
+        <action>#{chatroom.initTags}</action>
+    </url-mapping>
+    <url-mapping id = "videoPlay" parentId="top-new" onPostback="false">
+        <pattern value="/#{file:chatroom.file}" />
+        <view-id value="/chatroom.jsf" />
+        <action>#{chatroom.initSingle}</action>
+    </url-mapping>
+    <url-mapping id = "videoTag" parentId="video-tags" onPostback="false">
+        <pattern value="/#{tag:chatroom.tagname}" />
+        <view-id value="/content/video/tag.jsf" />
+        <action>#{chatroom.initTag}</action>
+    </url-mapping>
+    <!--end-->
+    <!--结缘-->
+    <url-mapping id="goods" onPostback="false">
+        <pattern value="/结缘" />
+        <view-id value="/goods.jsf" />
+    </url-mapping>
+    <url-mapping id="heart-dir" onPostback="false">
+        <pattern value="/杨宁老师书籍/法界之心/目录" />
+        <view-id value="/content/goods/heart-dir.jsf" />
+        <action>#{goods.initHeartOfDharmaRealm}</action>
+    </url-mapping>
+    <url-mapping id="heart" onPostback="false">
+        <pattern value="/杨宁老师书籍/法界之心/#{id}" />
+        <view-id value="/content/goods/heart.jsf" />
+        <action>#{goods.initSutra}</action>
+    </url-mapping>
+    <url-mapping id="star-dir" onPostback="false">
+        <pattern value="/杨宁老师书籍/星路/目录" />
+        <view-id value="/content/goods/star-dir.jsf" />
+        <action>#{goods.initStarWay}</action>
+    </url-mapping>
+    <url-mapping id="star" onPostback="false">
+        <pattern value="/杨宁老师书籍/星路/#{id}" />
+        <view-id value="/content/goods/star.jsf" />
+        <action>#{goods.initSutra}</action>
+    </url-mapping>
+    <url-mapping id="teacher" onPostback="false">
+        <pattern value="/关于杨宁老师" />
+        <view-id value="/content/goods/teacher.jsf" />
+    </url-mapping>
+    <url-mapping id="book-form" onPostback="false">
+        <pattern value="/书籍赠阅" />
+        <view-id value="/content/goods/book.jsf" />
+    </url-mapping>
+    <url-mapping id="book-info" parentId="book-form" onPostback="false">
+        <pattern value="/信息检查" />
+        <view-id value="/content/goods/book-check.jsf" />
+    </url-mapping>
+    <url-mapping id="book-info" parentId="book-form" onPostback="false">
+        <pattern value="/提交成功" />
+        <view-id value="/content/goods/book-success.jsf" />
+    </url-mapping>
+    <!--end-->
+    <url-mapping id="setting" onPostback="false">
+        <pattern value="/设置" />
+        <view-id value="/setting.jsf" />
+    </url-mapping>
+    
+    <!--用户模块-->
+    <!--    <url-mapping id="friends" onPostback="false">
+        <pattern value="/朋友" />
+        <view-id value="/friends.jsf" />
+        <action>#{user.initPage}</action>
+    </url-mapping>
+    <url-mapping parent="friends" id="login" onPostback="false">
+        <pattern value="/登录" />
+        <view-id value="/content/friends/login.jsf" />
+    </url-mapping>
+    <url-mapping parent="friends" id="register" onPostback="false">
+        <pattern value="/成为朋友" />
+        <view-id value="/content/friends/register.jsf" />
+    </url-mapping>-->
+
+    <url-mapping id="error" onPostback="false"> 
+        <pattern value="/nogate" /> 
+        <view-id value="/404.jsf" />
+    </url-mapping>
+
+    <url-mapping id="failed" onPostback="false"> 
+        <pattern value="/wronggate" /> 
+        <view-id value="/500.jsf" />
+    </url-mapping>
+    
+</pretty-config>

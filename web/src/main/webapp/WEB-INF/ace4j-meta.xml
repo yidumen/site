@@ -1,0 +1,8 @@
+<resource include="/resources/css/bootstrap.min.css" />
+<resource include="/resources/css/jasny-bootstrap.min.css" />
+<resource include="/resources/css/nav.css" />
+<resource include="/resources/css/signin.css" />
+
+<resource include="/resources/js/jquery-2.1.1.min.js" />
+<resource include="/resources/js/bootstrap.min.js" />
+<resource include="/resources/css/jasny-bootstrap.min.css" />

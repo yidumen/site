@@ -1,0 +1,45 @@
+/* Created on : 2014-8-11, 21:59:30
+    Author     : 蔡迪旻 <yidumen.com>*/
+body {
+    padding-top: 70px;
+}
+#navigation{
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    z-index: 2000;
+}
+#toggle {
+    float: left;
+    margin-left: 10px;
+    margin-right: 0px;
+}
+#sidebar {
+    background-color: rgba(255,255,255,0.96);
+    border-right-color: #6c2201;
+    overflow: visible;
+}
+#sidebar>ul>li>a, #sidebar>ul>li>ul>li>a {
+    color: #6c2201 !important;
+
+}
+#logo {
+    position: relative;
+    left: 62px;
+}
+@media (max-width: 767px) {
+    #nav-menu {
+        height: 55%;
+        overflow: auto;
+    }
+}
+#title {
+    position: absolute;
+    top: 0px;
+    right: 96px;
+}
+.shardbtn {
+    position: absolute;
+    top: 0px;
+    right: 8px;
+}

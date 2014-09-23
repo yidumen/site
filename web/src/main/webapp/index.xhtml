@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ydm="http://xmlns.jcp.org/jsf/composite/ezcomp">
+
+    <body>
+
+        <ui:composition template="./template/master.xhtml">
+            <ui:param name="nav" value="0" />
+            <ui:param name="title" value="欢迎光临" />
+            <ui:define name="title">欢迎</ui:define>
+            <ui:define name="content">#{chatroom.loadpage()}
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="well well-sm">
+                            <div class="media">
+                                <img class="pull-left media-object" height="96" alt="杨宁老师" src="http://yimg.yidumen.com/yidumen/mobile/images/yangning.jpg" />
+                                <div class="media-body">
+                                    <div class="media-heading"><h4>关于杨宁老师</h4></div>
+                                    <p class="text-muted">二十年前，年轻、好奇、充满生活激情的她为了探寻“生命的奥秘”踏上了修证佛法之路。
+                                        <h:link value="详细介绍" outcome="/content/goods/teacher" />
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="panel panel-info">
+                            <div class="panel-heading panel-title">杨宁老师聊天视频推荐</div>
+                            <div class="list-group">
+                                <ui:repeat value="#{chatroom.recommends}" var="recommend" size="4">
+                                    <ydm:videoListItem styleClass="list-group-item" video="#{recommend}" />
+                                </ui:repeat>
+                                <h:link class="list-group-item" value="最新视频"
+                                        outcome="content/video/top-new" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
+                        <div class="panel panel-info">
+                            <div class="panel-heading panel-title">妙法莲华</div>
+                            <div class="list-group">
+                                <h:link class="list-group-item" value="妙法莲华经在说什么？妙法莲华经在佛法中的地位和价值"
+                                        outcome="content/lotus/sutra">
+                                    <f:param name="oid" value="1995" />
+                                </h:link>
+                                <h:link class="list-group-item" value="妙法莲华经对现代众生的意义"
+                                        outcome="content/lotus/sutra">
+                                    <f:param name="oid" value="2052" />
+                                </h:link>
+                                <h:link class="list-group-item" value="妙法莲华经概述 原经文及释义"
+                                        outcome="lotus">
+                                </h:link>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
+                        <div class="panel panel-info">
+                            <div class="panel-heading panel-title">佛法</div>
+                            <div class="list-group">
+                                <h:link class="list-group-item text-nowrap" value="信仰佛教、学习佛法与修证佛法的区别"
+                                        outcome="buddhism">
+                                </h:link>
+                                <h:link class="list-group-item" value="修证佛法"
+                                        outcome="content/buddhism/practice-dir">
+                                </h:link>
+                                <h:link class="list-group-item" value="学习佛法"
+                                        outcome="content/buddhism/study-dir">
+                                </h:link>
+                                <h:link class="list-group-item" value="了解佛教"
+                                        outcome="content/buddhism/known-dir">
+                                </h:link>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
+                        <div class="panel panel-info">
+                            <div class="panel-heading panel-title">结缘</div>
+                            <div class="list-group">
+                                <h:link class="list-group-item" value="杨宁老师著作：小说《法界之心》"
+                                        outcome="/content/goods/heart-dir" />
+                                <h:link class="list-group-item" value="杨宁老师著作：科幻故事《星路》"
+                                        outcome="/content/goods/heart-dir" />
+                                <h:link class="list-group-item" value="静坐音乐免费下载"
+                                        outcome="goods" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

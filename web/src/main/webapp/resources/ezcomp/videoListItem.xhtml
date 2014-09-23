@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <!-- INTERFACE -->
+    <cc:interface>
+        <cc:attribute name="video" type="com.yidumen.dao.entity.Video" required="true" />
+        <cc:attribute name="styleClass" />
+    </cc:interface>
+
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+        <h:link styleClass="#{cc.attrs.styleClass}" outcome="/chatroom">
+            <f:param name="file" value="#{cc.attrs.video.file}" />
+            <h:outputText styleClass="pull-right" value="#{cc.attrs.video.duration}">
+                <f:converter converterId="duration" />
+            </h:outputText>
+            <div class="badge">#{cc.attrs.video.sort}</div>
+            <h:outputText styleClass="list-video" value="#{cc.attrs.video.title}" />
+        </h:link>
+    </cc:implementation>
+</html>

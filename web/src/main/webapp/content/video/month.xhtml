@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ydm="http://xmlns.jcp.org/jsf/composite/ezcomp">
+
+    <body>
+
+        <ui:composition template="/template/master.xhtml">
+            <ui:param name="nav" value="3" />
+            <ui:param name="title" value="日期检索" />
+            <ui:define name="head">
+            </ui:define>
+
+            <ui:define name="title">
+                杨老师聊天视频
+            </ui:define>
+
+            <ui:define name="content">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <ui:repeat value="#{chatroom.videoGroups}" var="date">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h:outputText value="#{date.commonDate}">
+                                        <f:convertDateTime type="date" pattern="yyyy年MM月dd日" />
+                                    </h:outputText>
+                                </div>
+                                <div class="list-group">
+                                    <ui:repeat value="#{date.videos}" var="video">
+                                        <ydm:videoListItem styleClass="list-group-item" video="#{video}" />
+                                    </ui:repeat>
+                                </div>
+                            </div>
+                        </ui:repeat>
+                    </div>
+                </div>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

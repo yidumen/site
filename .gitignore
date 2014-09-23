@@ -10,3 +10,6 @@
 /ftplet/users.properties
 /ftplet/ftpd.xml
 /SpringOnACE/target/
+/web/nb-configuration.xml
+/web/target/
+/web/faces-config.NavData

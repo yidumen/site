@@ -4,9 +4,9 @@
   <session-factory>
     <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
     <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-    <property name="hibernate.connection.url">jdbc:mysql://QFINl7VB4Atdux9s:sJjwGbudhDZmd5cv@10.9.1.188:3306/cf_0681c1b9_eb9e_4820_bfe3_8173d20f433d</property>
-    <property name="hibernate.connection.username">QFINl7VB4Atdux9s</property>
-    <property name="hibernate.connection.password">sJjwGbudhDZmd5cv</property>
+    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/rl8k07vaxq6b1663</property>
+    <property name="hibernate.connection.username">yidumen</property>
+    <property name="hibernate.connection.password">yidumen</property>
     <property name="hibernate.show_sql">false</property>
     <property name="hibernate.current_session_context_class">thread</property>
     <mapping class="com.yidumen.dao.entity.Video"/>

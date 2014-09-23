@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="/template/master.xhtml">
+            <ui:param name="nav" value="4" />
+            <ui:param name="title" value="法界之心" />
+            <ui:define name="head">
+            </ui:define>
+
+            <ui:define name="title">
+                杨宁老师书籍
+            </ui:define>
+
+            <ui:define name="content">
+                <div class="page-header">
+                    <h2>星路</h2>
+                </div>
+                <p>在遥远的银河系中央，有一颗星球，这儿的生命都是光化身，他们神通很大，可以像佛教中的观世音菩萨一样，个个随心念所想，变出千手千眼。有一个国王统治着整个星球，他的名字叫多宝如意王，他有一个女儿，叫大悲。</p>
+                <hr />
+                <ul class="list-unstyled">
+                    <ui:repeat value="#{goods.sutras}" var="sutra">
+                        <li>
+                            <h:link value="#{sutra.partIdentifier} #{sutra.title}"
+                                    outcome="/content/goods/star">
+                                <f:param name="id" value="#{sutra.id}" />
+                            </h:link>
+                        </li>
+                    </ui:repeat>
+                </ul>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
