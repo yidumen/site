@@ -21,13 +21,15 @@ public class VideoPlayer {
         Map<String, Object> cookies = FacesContext.getCurrentInstance().getExternalContext().getRequestCookieMap();
         final Cookie cookieOnline = (Cookie) cookies.get("online");
         final Cookie cookieDownload = (Cookie) cookies.get("download");
-        online = cookieOnline.getValue();
-        download = cookieDownload.getValue();
-        if ("null".equals(online)) {
+        if ("null".equals(cookieOnline)) {
             online = "360";
+        } else {
+            online = cookieOnline.getValue();
         }
-        if ("null".equals(download)) {
+        if ("null".equals(cookieDownload)) {
             download = "360";
+        } else {
+            download = cookieDownload.getValue();
         }
     }
 
