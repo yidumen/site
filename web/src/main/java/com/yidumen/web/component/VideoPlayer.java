@@ -14,19 +14,19 @@ import javax.servlet.http.Cookie;
 @RequestScoped
 public class VideoPlayer {
 
-    private String online;
-    private String download;
+    private final String online;
+    private final String download;
 
     public VideoPlayer() {
         Map<String, Object> cookies = FacesContext.getCurrentInstance().getExternalContext().getRequestCookieMap();
         final Cookie cookieOnline = (Cookie) cookies.get("online");
         final Cookie cookieDownload = (Cookie) cookies.get("download");
-        if ("null".equals(cookieOnline)) {
+        if (null == cookieOnline) {
             online = "360";
         } else {
             online = cookieOnline.getValue();
         }
-        if ("null".equals(cookieDownload)) {
+        if (null == cookieDownload) {
             download = "360";
         } else {
             download = cookieDownload.getValue();
