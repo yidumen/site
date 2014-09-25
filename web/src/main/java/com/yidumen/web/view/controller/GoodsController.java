@@ -92,7 +92,10 @@ public class GoodsController {
         final String sessionId = FacesContext.getCurrentInstance().getExternalContext().getSessionId(false);
         log.debug("session id is {}", sessionId);
         final Map<String, Object> map = (Map<String, Object>) CacheServiceFactory.getCacheService().get(sessionId);
-        Goods g = (Goods) map.getOrDefault("goods", new Goods());
+        Goods g = (Goods) map.get("goods");
+        if (g == null) {
+            g = new Goods();
+        }
         log.debug("goods is {}", g.getName());
         return g;
     }
