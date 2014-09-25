@@ -17,5 +17,6 @@
     <mapping class="com.yidumen.dao.entity.Tag"/>
     <mapping class="com.yidumen.dao.entity.UserMessage"/>
     <mapping class="com.yidumen.dao.entity.VerifyInfo"/>
+    <mapping class="com.yidumen.dao.entity.Goods"/>
   </session-factory>
 </hibernate-configuration>

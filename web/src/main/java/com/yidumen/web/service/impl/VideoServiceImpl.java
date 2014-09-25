@@ -3,6 +3,7 @@ package com.yidumen.web.service.impl;
 import com.yidumen.web.service.VideoService;
 import com.yidumen.dao.TagDAO;
 import com.yidumen.dao.VideoDAO;
+import com.yidumen.dao.constant.TagType;
 import com.yidumen.dao.constant.VideoStatus;
 import com.yidumen.dao.entity.Tag;
 import com.yidumen.dao.entity.Video;
@@ -104,6 +105,13 @@ public class VideoServiceImpl implements VideoService {
     @Override
     public List<Tag> findTags(int limit) {
         return tagDao.findVideoTags(limit);
+    }
+    
+    @Override
+    public List<Tag> findTags(TagType type) {
+        Tag tag = new Tag();
+        tag.setType(type);
+        return tagDao.find(tag);
     }
 
     @Override

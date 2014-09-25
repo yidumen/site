@@ -79,6 +79,11 @@
         <view-id value="/content/video/month.jsf" />
         <action>#{chatroom.initMonth}</action>
     </url-mapping>
+    <url-mapping id = "video-group" parentId="top-new" onPostback="false">
+        <pattern value="/分类查看" />
+        <view-id value="/content/video/group.jsf" />
+        <action>#{chatroom.initGroup}</action>
+    </url-mapping>
     <url-mapping id = "video-tags" parentId="top-new" onPostback="false">
         <pattern value="/标签" />
         <view-id value="/content/video/tags.jsf" />
@@ -131,10 +136,12 @@
     <url-mapping id="book-info" parentId="book-form" onPostback="false">
         <pattern value="/信息检查" />
         <view-id value="/content/goods/book-check.jsf" />
+        <action>#{goods.initBookCheck}</action>
     </url-mapping>
     <url-mapping id="book-info" parentId="book-form" onPostback="false">
         <pattern value="/提交成功" />
         <view-id value="/content/goods/book-success.jsf" />
+        <action>#{goods.createGoods}</action>
     </url-mapping>
     <!--end-->
     <url-mapping id="setting" onPostback="false">

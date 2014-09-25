@@ -13,6 +13,12 @@
 
     <!-- IMPLEMENTATION -->
     <cc:implementation>
+        <h:outputStylesheet>
+            .list-group-item>.pull-right{
+                line-height: 1;
+                margin-left: 20px;
+            }
+        </h:outputStylesheet>
         <h:link styleClass="#{cc.attrs.styleClass}" outcome="/chatroom">
             <f:param name="file" value="#{cc.attrs.video.file}" />
             <h:outputText styleClass="pull-right" value="#{cc.attrs.video.duration}">

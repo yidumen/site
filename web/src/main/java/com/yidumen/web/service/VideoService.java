@@ -1,5 +1,6 @@
 package com.yidumen.web.service;
 
+import com.yidumen.dao.constant.TagType;
 import com.yidumen.dao.entity.Tag;
 import com.yidumen.dao.entity.Video;
 import com.yidumen.dao.model.VideoQueryModel;
@@ -39,5 +40,7 @@ public interface VideoService {
     List<Video> find(VideoQueryModel model);
 
     Tag findTags(String tagname);
+
+    List<Tag> findTags(TagType type);
     
 }

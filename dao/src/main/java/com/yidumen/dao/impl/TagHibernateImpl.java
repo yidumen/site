@@ -7,6 +7,7 @@ import com.yidumen.dao.framework.HibernateUtil;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
+import org.hibernate.criterion.Example;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
@@ -28,7 +29,7 @@ public class TagHibernateImpl extends AbstractHibernateImpl<Tag> implements TagD
                 .list();
         return result;
     }
-    
+
     @Override
     public List<Tag> findVideoTags(final int limit) {
         final Criteria criteria = HibernateUtil.getSessionFactory().getCurrentSession().createCriteria(Tag.class)
@@ -51,9 +52,18 @@ public class TagHibernateImpl extends AbstractHibernateImpl<Tag> implements TagD
     }
 
     @Override
+    public List<Tag> find(Tag tag) {
+        return HibernateUtil.getSessionFactory().getCurrentSession()
+                .createCriteria(Tag.class)
+                .add(Example.create(tag)
+                        .excludeProperty("hits"))
+                .list();
+    }
+
+    @Override
     protected void initalizeLazy(Tag entity) {
         Hibernate.initialize(entity.getVideos());
         Hibernate.initialize(entity.getSutras());
     }
-    
+
 }

@@ -16,9 +16,11 @@
         <div class="ydm_video_box #{cc.attrs.styleClass}">
             <span class="h4">#{cc.attrs.source.title}</span>
             <a class="pull-right" style="color: whitesmoke" href="http://v3.yidumen.com/video/#{player.download}/#{cc.attrs.source.file}_#{cc.attrs.source.title}_#{player.download}.mp4">下载视频</a>
-            <video id="player" width="100%" src="http://v3.yidumen.com/video/#{player.online}/#{cc.attrs.source.file}_180.mp4" controls="controls">
+            <div class="embed-responsive embed-responsive-16by9">
+                <video id="player" class="embed-responsive-item" src="http://v3.yidumen.com/video/#{player.online}/#{cc.attrs.source.file}_180.mp4" controls="controls">
                     对不起，您的浏览器不支持视频播放，请更新您的浏览器或使用谷歌浏览器。
-            </video>
+                </video>
+            </div>
             <span class="time">
                 <h:outputText value="#{cc.attrs.source.duration}">
                     <f:converter converterId="duration" />

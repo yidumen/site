@@ -3,6 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:pretty="http://ocpsoft.com/prettyfaces"
       lang="zh-CN">
 
     <h:head>
@@ -67,6 +68,10 @@
                         <ul class="dropdown-menu" role="menu">
                             <li role="presentation">
                                 <h:link value="最新视频" outcome="/content/video/top-new" />
+                            </li>
+                            <li class="divider"></li>
+                            <li role="presentation">
+                                <pretty:link mappingId="video-group">分类查看</pretty:link>
                             </li>
                             <li role="presentation">
                                 <h:link value="按内容查看" outcome="/content/video/tags" />

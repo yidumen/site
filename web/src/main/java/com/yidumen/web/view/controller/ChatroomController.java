@@ -1,5 +1,6 @@
 package com.yidumen.web.view.controller;
 
+import com.yidumen.dao.constant.TagType;
 import com.yidumen.dao.constant.VideoStatus;
 import com.yidumen.dao.entity.Tag;
 import com.yidumen.dao.entity.Video;
@@ -7,7 +8,6 @@ import com.yidumen.dao.framework.HibernateUtil;
 import com.yidumen.web.service.VideoService;
 import com.yidumen.web.view.model.VideoGroup;
 import com.yidumen.web.view.model.VideoShootDate;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -135,7 +135,7 @@ public class ChatroomController {
      * 初始化标签列表页面
      */
     public void initTags() {
-        this.tags = service.findTags(0);
+        this.tags = service.findTags(TagType.CONTENT);
         logger.debug("{}",this.tags.size());
     }
 
@@ -144,6 +144,10 @@ public class ChatroomController {
      */
     public void initTag() {
         this.tag = service.findTags(this.tagname);
+    }
+    
+    public void initGroup() {
+        this.tags = service.findTags(TagType.GROUP);
     }
 
     /**

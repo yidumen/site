@@ -8,6 +8,7 @@ import com.yidumen.dao.entity.VideoInfo;
 import com.yidumen.dao.framework.HibernateUtil;
 import com.yidumen.dao.model.VideoQueryModel;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import org.hibernate.Criteria;
@@ -126,12 +127,16 @@ public class VideoHibernateImpl extends AbstractHibernateImpl<Video> implements 
         }
         if (model.getTags() != null) {
             criteria.createAlias("tags", "tag");
-            Criterion[] restrictionses = new Criterion[model.getTags().size()];
-            for (int i = 0; i < restrictionses.length; i++) {
-                Tag tag = model.getTags().get(i);
-                restrictionses[i] = Restrictions.eq("tag.tagname", tag.getTagname());
+            List<Criterion> restrictionses = new ArrayList<>();
+            for (Tag tag : model.getTags()) {
+                if (tag.getTagname() != null) {
+                    restrictionses.add(Restrictions.eq("tag.tagname", tag.getTagname()));
+                }
+                if (tag.getType() != null) {
+                    restrictionses.add(Restrictions.eq("tag.type", tag.getType()));
+                }
             }
-            criteria.add(Restrictions.or(restrictionses));
+            criteria.add(Restrictions.or((Criterion[])restrictionses.toArray()));
         }
         if (model.getDescrpition() != null) {
             criteria.add(Restrictions.like("descrpition", "%" + model.getDescrpition() + "%"));

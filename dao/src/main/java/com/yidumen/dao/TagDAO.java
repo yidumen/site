@@ -14,5 +14,7 @@ public interface TagDAO extends BaseDAO<Tag> {
     List<Tag> findTags(int limit);
 
     List<Tag> findVideoTags(final int limit);
+
+    List<Tag> find(Tag tag);
     
 }

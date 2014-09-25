@@ -15,9 +15,8 @@
     overflow:hidden;
     text-overflow: ellipsis; 
 }
-.list-group-item>.pull-right{
-    line-height: 1;
-    margin-left: 20px;
+p {
+    text-indent: 2em;
 }
 .ydm_video_box{
     clear:both;
