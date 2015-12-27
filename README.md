@@ -7,3 +7,7 @@
 
 当项目创建时，易度门网站已经计划部署到`ACE（Aliyun Cloud Engine，阿里云引擎）`，`ACE`的应用服务器是基于`Tomcat`二次开发的，所以这些项目都是基于`Tomcat`的，首先保证在原生的`Tomcat`中能够正常运行，然后保证能在`ACE`中运行。当然，某些功能需要调用`ACE`容器特有的API，例如邮件，这些功能是无法在普通的容器中运行的。
 
+本项目已经拆分为：
+https://github.com/yidumen/cms-platform
+https://github.com/yidumen/web-site
+https://github.com/yidumen/ftplet
